@@ -208,59 +208,75 @@ export namespace event {
 }
 
 export namespace interfaces {
-  export interface PayloadBuilder {
-    setEventType(eventName: event.EventName): PayloadBuilder
-    setPayload(payload: event.Payload): PayloadBuilder
+  export interface ParameterBuilder {
+    setEventType(eventName: event.EventName): ParameterBuilder
+    setPayload(payload: event.Payload): ParameterBuilder
     getEventType(): event.EventName
     getPayload(): event.Payload
     getProps(): event.props
   }
-  export interface TrashCollectionAlertBuilder extends PayloadBuilder {
-    setEventType(eventName: event.TrashCollectionAlert.EventName): PayloadBuilder
-    setPayload(payload: event.TrashCollectionAlert.Payload): PayloadBuilder
-    getEventType(): event.TrashCollectionAlert.EventName
-    getPayload(): event.TrashCollectionAlert.Payload
+  export namespace TrashCollectionAlert {
+    export interface ParameterBuilder extends interfaces.ParameterBuilder {
+      setEventType(eventName: event.TrashCollectionAlert.EventName): ParameterBuilder
+      setPayload(payload: event.TrashCollectionAlert.Payload): ParameterBuilder
+      getEventType(): event.TrashCollectionAlert.EventName
+      getPayload(): event.TrashCollectionAlert.Payload
+    }
   }
-  export interface WeatherAlertBuilder extends PayloadBuilder {
-    setEventType(eventName: event.WeatherAlert.EventName): PayloadBuilder
-    setPayload(payload: event.WeatherAlert.Payload): PayloadBuilder
-    getEventType(): event.WeatherAlert.EventName
-    getPayload(): event.WeatherAlert.Payload
+  export namespace WeatherAlert {
+    export interface ParameterBuilder extends interfaces.ParameterBuilder {
+      setEventType(eventName: event.WeatherAlert.EventName): ParameterBuilder
+      setPayload(payload: event.WeatherAlert.Payload): ParameterBuilder
+      getEventType(): event.WeatherAlert.EventName
+      getPayload(): event.WeatherAlert.Payload
+    }
   }
-  export interface SportsEventBuilder extends PayloadBuilder {
-    setEventType(eventName: event.SportsEvent.EventName): PayloadBuilder
-    setPayload(payload: event.SportsEvent.Payload): PayloadBuilder
-    getEventType(): event.SportsEvent.EventName
-    getPayload(): event.SportsEvent.Payload
+  export namespace SportsEvent {
+    export interface ParameterBuilder extends interfaces.ParameterBuilder {
+      setEventType(eventName: event.SportsEvent.EventName): ParameterBuilder
+      setPayload(payload: event.SportsEvent.Payload): ParameterBuilder
+      getEventType(): event.SportsEvent.EventName
+      getPayload(): event.SportsEvent.Payload
+    }
   }
-  export interface MessageAlertBuilder extends PayloadBuilder {
-    setEventType(eventName: event.MessageAlert.EventName): PayloadBuilder
-    setPayload(payload: event.MessageAlert.Payload): PayloadBuilder
-    getEventType(): event.MessageAlert.EventName
-    getPayload(): event.MessageAlert.Payload
+  export namespace MessageAlert {
+    export interface ParameterBuilder extends interfaces.ParameterBuilder {
+      setEventType(eventName: event.MessageAlert.EventName): ParameterBuilder
+      setPayload(payload: event.MessageAlert.Payload): ParameterBuilder
+      getEventType(): event.MessageAlert.EventName
+      getPayload(): event.MessageAlert.Payload
+    }
   }
-  export interface OrderStatusBuilder extends PayloadBuilder {
-    setEventType(eventName: event.OrderStatus.EventName): PayloadBuilder
-    setPayload(payload: event.OrderStatus.Payload): PayloadBuilder
-    getEventType(): event.OrderStatus.EventName
-    getPayload(): event.OrderStatus.Payload
+  export namespace OrderStatus {
+    export interface ParameterBuilder extends interfaces.ParameterBuilder {
+      setEventType(eventName: event.OrderStatus.EventName): ParameterBuilder
+      setPayload(payload: event.OrderStatus.Payload): ParameterBuilder
+      getEventType(): event.OrderStatus.EventName
+      getPayload(): event.OrderStatus.Payload
+    }
   }
-  export interface OccasionBuilder extends PayloadBuilder {
-    setEventType(eventName: event.Occasion.EventName): PayloadBuilder
-    setPayload(payload: event.Occasion.Payload): PayloadBuilder
-    getEventType(): event.Occasion.EventName
-    getPayload(): event.Occasion.Payload
+  export namespace Occasion {
+    export interface ParameterBuilder extends interfaces.ParameterBuilder {
+      setEventType(eventName: event.Occasion.EventName): ParameterBuilder
+      setPayload(payload: event.Occasion.Payload): ParameterBuilder
+      getEventType(): event.Occasion.EventName
+      getPayload(): event.Occasion.Payload
+    }
   }
-  export interface MediaContentBuilder extends PayloadBuilder {
-    setEventType(eventName: event.MediaContent.EventName): PayloadBuilder
-    setPayload(payload: event.MediaContent.Payload): PayloadBuilder
-    getEventType(): event.MediaContent.EventName
-    getPayload(): event.MediaContent.Payload
+  export namespace MediaContent {
+    export interface ParameterBuilder extends interfaces.ParameterBuilder {
+      setEventType(eventName: event.MediaContent.EventName): ParameterBuilder
+      setPayload(payload: event.MediaContent.Payload): ParameterBuilder
+      getEventType(): event.MediaContent.EventName
+      getPayload(): event.MediaContent.Payload
+    }
   }
-  export interface SocialGameInviteBuilder extends PayloadBuilder {
-    setEventType(eventName: event.SocialGameInvite.EventName): PayloadBuilder
-    setPayload(payload: event.SocialGameInvite.Payload): PayloadBuilder
-    getEventType(): event.SocialGameInvite.EventName
-    getPayload(): event.SocialGameInvite.Payload
+  export namespace SocialGameInvite {
+    export interface ParameterBuilder extends interfaces.ParameterBuilder {
+      setEventType(eventName: event.SocialGameInvite.EventName): ParameterBuilder
+      setPayload(payload: event.SocialGameInvite.Payload): ParameterBuilder
+      getEventType(): event.SocialGameInvite.EventName
+      getPayload(): event.SocialGameInvite.Payload
+    }
   }
 }
