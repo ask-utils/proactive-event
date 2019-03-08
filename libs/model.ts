@@ -109,10 +109,15 @@ export namespace Types {
 }
 
 export namespace event {
+  export type props = {
+    name: EventName,
+    payload: Payload
+  }
   export type EventName = WeatherAlert.EventName | SportsEvent.EventName | MessageAlert.EventName | OrderStatus.EventName | Occasion.EventName | MediaContent.EventName | SocialGameInvite.EventName | TrashCollectionAlert.EventName
-
+  export type Payload = TrashCollectionAlert.Payload | WeatherAlert.Payload | SportsEvent.Payload | MessageAlert.Payload | OrderStatus.Payload | Occasion.Payload | MediaContent.Payload | SocialGameInvite.Payload
   export namespace TrashCollectionAlert {
     export type EventName = Activated.EventName
+    export type Payload = Activated.Payload
     export namespace Activated {
       export type EventName = "AMAZON.TrashCollectionAlert.Activated"
       export interface Payload {
@@ -122,6 +127,7 @@ export namespace event {
   }
   export namespace WeatherAlert {
     export type EventName = Activated.EventName
+    export type Payload = Activated.Payload
     export namespace Activated {
       export type EventName = "AMAZON.WeatherAlert.Activated"
       export interface Payload {
@@ -131,6 +137,7 @@ export namespace event {
   }
   export namespace SportsEvent {
     export type EventName = Updated.EventName
+    export type Payload = Updated.Payload
     export namespace Updated {
       export type EventName = "AMAZON.SportsEvent.Updated"
       export interface Payload {
@@ -141,6 +148,7 @@ export namespace event {
   }
   export namespace MessageAlert {
     export type EventName = Activated.EventName
+    export type Payload = Activated.Payload
     export namespace Activated {
       export type EventName = "AMAZON.MessageAlert.Activated"
       export interface Payload {
@@ -151,6 +159,7 @@ export namespace event {
   }
   export namespace OrderStatus {
     export type EventName = Updated.EventName
+    export type Payload = Updated.Payload
     export namespace Updated {
       export type EventName = "AMAZON.OrderStatus.Updated"
       export interface Payload {
@@ -161,6 +170,7 @@ export namespace event {
   }
   export namespace Occasion {
     export type EventName = Updated.EventName
+    export type Payload = Updated.Payload
     export namespace Updated {
       export type EventName = "AMAZON.Occasion.Updated"
       export interface Payload {
@@ -171,6 +181,7 @@ export namespace event {
   }
   export namespace MediaContent {
     export type EventName = Available.EventName
+    export type Payload = Available.Payload
     export namespace Available {
       export type EventName = "AMAZON.MediaContent.Available"
       export interface Payload {
@@ -181,6 +192,7 @@ export namespace event {
   }
   export namespace SocialGameInvite {
     export type EventName = Available.EventName
+    export type Payload = Available.Payload
     export namespace Available {
       export type EventName = "AMAZON.SocialGameInvite.Available"
       export interface Payload {
@@ -193,5 +205,62 @@ export namespace event {
       }[]
     }
   }
+}
 
+export namespace interfaces {
+  export interface PayloadBuilder {
+    setEventType(eventName: event.EventName): PayloadBuilder
+    setPayload(payload: event.Payload): PayloadBuilder
+    getEventType(): event.EventName
+    getPayload(): event.Payload
+    getProps(): event.props
+  }
+  export interface TrashCollectionAlertBuilder extends PayloadBuilder {
+    setEventType(eventName: event.TrashCollectionAlert.EventName): PayloadBuilder
+    setPayload(payload: event.TrashCollectionAlert.Payload): PayloadBuilder
+    getEventType(): event.TrashCollectionAlert.EventName
+    getPayload(): event.TrashCollectionAlert.Payload
+  }
+  export interface WeatherAlertBuilder extends PayloadBuilder {
+    setEventType(eventName: event.WeatherAlert.EventName): PayloadBuilder
+    setPayload(payload: event.WeatherAlert.Payload): PayloadBuilder
+    getEventType(): event.WeatherAlert.EventName
+    getPayload(): event.WeatherAlert.Payload
+  }
+  export interface SportsEventBuilder extends PayloadBuilder {
+    setEventType(eventName: event.SportsEvent.EventName): PayloadBuilder
+    setPayload(payload: event.SportsEvent.Payload): PayloadBuilder
+    getEventType(): event.SportsEvent.EventName
+    getPayload(): event.SportsEvent.Payload
+  }
+  export interface MessageAlertBuilder extends PayloadBuilder {
+    setEventType(eventName: event.MessageAlert.EventName): PayloadBuilder
+    setPayload(payload: event.MessageAlert.Payload): PayloadBuilder
+    getEventType(): event.MessageAlert.EventName
+    getPayload(): event.MessageAlert.Payload
+  }
+  export interface OrderStatusBuilder extends PayloadBuilder {
+    setEventType(eventName: event.OrderStatus.EventName): PayloadBuilder
+    setPayload(payload: event.OrderStatus.Payload): PayloadBuilder
+    getEventType(): event.OrderStatus.EventName
+    getPayload(): event.OrderStatus.Payload
+  }
+  export interface OccasionBuilder extends PayloadBuilder {
+    setEventType(eventName: event.Occasion.EventName): PayloadBuilder
+    setPayload(payload: event.Occasion.Payload): PayloadBuilder
+    getEventType(): event.Occasion.EventName
+    getPayload(): event.Occasion.Payload
+  }
+  export interface MediaContentBuilder extends PayloadBuilder {
+    setEventType(eventName: event.MediaContent.EventName): PayloadBuilder
+    setPayload(payload: event.MediaContent.Payload): PayloadBuilder
+    getEventType(): event.MediaContent.EventName
+    getPayload(): event.MediaContent.Payload
+  }
+  export interface SocialGameInviteBuilder extends PayloadBuilder {
+    setEventType(eventName: event.SocialGameInvite.EventName): PayloadBuilder
+    setPayload(payload: event.SocialGameInvite.Payload): PayloadBuilder
+    getEventType(): event.SocialGameInvite.EventName
+    getPayload(): event.SocialGameInvite.Payload
+  }
 }
