@@ -212,15 +212,25 @@ export namespace interfaces {
     setEventType(eventName: event.EventName): ParameterBuilder
     setPayload(payload: event.Payload): ParameterBuilder
     getEventType(): event.EventName
-    getPayload(): event.Payload
     getProps(): event.props
   }
   export namespace TrashCollectionAlert {
-    export interface ParameterBuilder extends interfaces.ParameterBuilder {
-      setEventType(eventName: event.TrashCollectionAlert.EventName): ParameterBuilder
-      setPayload(payload: event.TrashCollectionAlert.Payload): ParameterBuilder
-      getEventType(): event.TrashCollectionAlert.EventName
-      getPayload(): event.TrashCollectionAlert.Payload
+    export type PayloadBuilder = Activated.PayloadBuilder
+    export type ParameterBuilder = Activated.ParameterBuilder
+    export namespace Activated {
+      export interface PayloadBuilder {
+        putPayload(payload: event.TrashCollectionAlert.Payload): PayloadBuilder
+        putAlert(alert: Types.TrashCollectionAlert): PayloadBuilder
+        putGarbageTypes(garbageTypes: Types.GarbageType[]): PayloadBuilder
+        addGarbageType(garbageType: Types.GarbageType): PayloadBuilder
+        setCollectionDayOfWeek(collectionDayOfWeek: Types.DayOfWeek): PayloadBuilder
+        getPayload(): event.TrashCollectionAlert.Payload
+      }
+      export interface ParameterBuilder extends interfaces.ParameterBuilder {
+        setEventType(eventName: event.TrashCollectionAlert.EventName): ParameterBuilder
+        setPayload(payload: event.TrashCollectionAlert.Payload): ParameterBuilder
+        getParameter(): event.TrashCollectionAlert.EventName
+      }
     }
   }
   export namespace WeatherAlert {
