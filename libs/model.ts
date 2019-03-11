@@ -4,7 +4,7 @@ export namespace Types {
   export type Person = {
     name: string
   }
-  export type MediaTypes = "BOOK" | "EPISODE" | "ALBUM" | "SINGLE" | "MOVIE" | "GAME"
+  export type MediaType = "BOOK" | "EPISODE" | "ALBUM" | "SINGLE" | "MOVIE" | "GAME"
   export type DistributionMethod = "STREAM" | "AIR" | "RELEASE" | "PREMIERE" | "DROP"
   export type Thing = {
     name: "localizedattribute:providerName"
@@ -15,8 +15,8 @@ export namespace Types {
     method: DistributionMethod
   }
   export type CreativeWork = {
-    name: "localizedattribute:contentName",
-    contentType: MediaTypes
+    name: string, //"localizedattribute:contentName",
+    contentType: MediaType
   }
   export type OfferType = "MATCH" | "REMATCH" | "GAME"
   export type InviteType = "CHALLENGE" | "INVITE"
@@ -109,9 +109,9 @@ export namespace Types {
 }
 
 export namespace event {
-  export type props = {
-    name: EventName,
-    payload: Payload
+  export type props<E = EventName, P = Payload> = {
+    name: E,
+    payload: P
   }
   export type EventName = WeatherAlert.EventName | SportsEvent.EventName | MessageAlert.EventName | OrderStatus.EventName | Occasion.EventName | MediaContent.EventName | SocialGameInvite.EventName | TrashCollectionAlert.EventName
   export type Payload = TrashCollectionAlert.Payload | WeatherAlert.Payload | SportsEvent.Payload | MessageAlert.Payload | OrderStatus.Payload | Occasion.Payload | MediaContent.Payload | SocialGameInvite.Payload
@@ -211,12 +211,10 @@ export namespace interfaces {
   export interface ParameterBuilder {
     setEventType(eventName: event.EventName): ParameterBuilder
     setPayload(payload: event.Payload): ParameterBuilder
-    getEventType(): event.EventName
-    getProps(): event.props
+    getParameter(): event.props
   }
   export namespace TrashCollectionAlert {
     export type PayloadBuilder = Activated.PayloadBuilder
-    export type ParameterBuilder = Activated.ParameterBuilder
     export namespace Activated {
       export interface PayloadBuilder {
         putPayload(payload: event.TrashCollectionAlert.Payload): PayloadBuilder
@@ -224,12 +222,9 @@ export namespace interfaces {
         putGarbageTypes(garbageTypes: Types.GarbageType[]): PayloadBuilder
         addGarbageType(garbageType: Types.GarbageType): PayloadBuilder
         setCollectionDayOfWeek(collectionDayOfWeek: Types.DayOfWeek): PayloadBuilder
+        getEventName(): event.TrashCollectionAlert.Activated.EventName
         getPayload(): event.TrashCollectionAlert.Payload
-      }
-      export interface ParameterBuilder extends interfaces.ParameterBuilder {
-        setEventType(eventName: event.TrashCollectionAlert.EventName): ParameterBuilder
-        setPayload(payload: event.TrashCollectionAlert.Payload): ParameterBuilder
-        getParameter(): event.TrashCollectionAlert.EventName
+        getParameter(): event.props<event.TrashCollectionAlert.EventName, event.TrashCollectionAlert.Payload>
       }
     }
   }
@@ -274,11 +269,17 @@ export namespace interfaces {
     }
   }
   export namespace MediaContent {
-    export interface ParameterBuilder extends interfaces.ParameterBuilder {
-      setEventType(eventName: event.MediaContent.EventName): ParameterBuilder
-      setPayload(payload: event.MediaContent.Payload): ParameterBuilder
-      getEventType(): event.MediaContent.EventName
-      getPayload(): event.MediaContent.Payload
+    export namespace Available {
+      export interface PayloadBuilder {
+        setContentName(name: string): PayloadBuilder
+        setMediaType(type: Types.MediaType): PayloadBuilder
+        getEventName(): event.MediaContent.EventName
+        setStartTime(date: Date): PayloadBuilder
+        setDistributionMethod(method: Types.DistributionMethod): PayloadBuilder
+        setProvider(providerName: string): PayloadBuilder
+        getPayload(): event.MediaContent.Payload
+        getParameter(): event.props<event.MediaContent.EventName, event.MediaContent.Available.Payload>
+      }
     }
   }
   export namespace SocialGameInvite {

@@ -29,9 +29,10 @@
     "eslint-plugin-promise": "^4.0.1",
     "eslint-plugin-standard": "^4.0.0",
     "jest": "^23.6.0",
-    "typescript": "^3.3.3333",
+    "moment": "^2.24.0",
     "ts-jest": "^23.10.5",
-    "typedoc": "^0.14.1"
+    "typedoc": "^0.14.1",
+    "typescript": "^3.3.3333"
   },
   "jest": {
     "moduleFileExtensions": [
@@ -48,6 +49,7 @@
       }
     },
     "testMatch": [
+      "**/__tests__/**/*.+(ts|tsx|js)",
       "**/__tests__/*/*.+(ts|tsx|js)"
     ]
   }
