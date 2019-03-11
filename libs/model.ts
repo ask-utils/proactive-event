@@ -210,6 +210,39 @@ export namespace event {
     }
 }
 
+export namespace client {
+  export interface Class {
+    getAccessToken: Promise<client.AuthResponse>
+  }
+  export type ClientId = string
+  export type ClientSecret = string
+  export type APIURL = 'https://api.amazonalexa.com/v1/proactiveEvents/' | 'https://api.eu.amazonalexa.com/v1/proactiveEvents/' | 'https://api.fe.amazonalexa.com/v1/proactiveEvents/'
+  export type DevAPIURL = 'https://api.amazonalexa.com/v1/proactiveEvents/stages/development' | 'https://api.eu.amazonalexa.com/v1/proactiveEvents/stages/development' | 'https://api.fe.amazonalexa.com/v1/proactiveEvents/stages/development'
+  export type APIEndpoint = APIURL | DevAPIURL
+  export type ApiRegion = 'FE' | 'US' | 'EU'
+  export type ClientConfig = {
+    clientId: ClientId,
+    clientSecret: ClientSecret,
+    apiEndpont?: APIEndpoint,
+    apiRegion?: ApiRegion,
+    isProduction?: boolean
+  }
+  export type AuthResponse = {
+    "access_token": string,
+    "expires_in": number,
+    "scope": "alexa::proactive_events",
+    "token_type": "Bearer"
+  }
+  export type AudienceType = 'Unicast' | 'Multicast'
+  export type AudiencePayload = {
+    user: string
+  }
+  export type RelevantAudience = {
+    type: AudienceType
+    payload?: AudiencePayload
+  }
+}
+
 export namespace interfaces {
     export interface PayloadBuilder {
         getEventName(): event.EventName;
