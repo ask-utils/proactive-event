@@ -24,7 +24,7 @@ export default class ParameterFactory {
         return this
       },
       addGarbageType(garbageType: Types.GarbageType): PayloadBuilder {
-        if (!alert.garbageTypes && alert.garbageTypes.length > 0) {
+        if (alert.garbageTypes && alert.garbageTypes.length > 0) {
           alert.garbageTypes.push(garbageType)
         } else {
           alert.garbageTypes = [garbageType]

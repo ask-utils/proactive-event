@@ -271,7 +271,7 @@ export namespace interfaces {
   export namespace MediaContent {
     export namespace Available {
       export interface PayloadBuilder {
-        setContentName(name: string): PayloadBuilder
+        setContentName(name?: string): PayloadBuilder
         setMediaType(type: Types.MediaType): PayloadBuilder
         getEventName(): event.MediaContent.EventName
         setStartTime(date: Date): PayloadBuilder
