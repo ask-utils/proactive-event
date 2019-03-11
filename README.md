@@ -20,7 +20,7 @@ $ npm i -S @ask-utils/proactive-event
 ```typescript
 import { MediaContent } from '../../dist/index'
 
-const { PayloadBuilder } = MediaContent.Available
+const PayloadBuilder = MediaContent.Available.PayloadFactory.init()
 PayloadBuilder
   .setContentName()
   .setMediaType('ALBUM')
@@ -48,7 +48,8 @@ PayloadBuilder
 ```typescript
 import { TrashCollectionAlert } from '../../dist/index'
 
-TrashCollectionAlert.Activated.PayloadBuilder
+const PayloadBuilder = TrashCollectionAlert.Activated.PayloadFactory.init()
+PayloadBuilder
   .setCollectionDayOfWeek('MONDAY')
   .addGarbageType('BOTTLES')
   .addGarbageType('BULKY')
@@ -65,6 +66,28 @@ TrashCollectionAlert.Activated.PayloadBuilder
         'BULKY',
         'CANS'
       ]
+    }
+  }
+}
+```
+
+### AMAZON.WeatherAlert.Activated
+
+```typescript
+import { WeatherAlert } from '../../dist/index'
+
+const PayloadBuilder = WeatherAlert.Activated.PayloadFactory.init()
+PayloadBuilder
+  .setAlertType('HURRICANE')
+  .setAlertSource('example source')
+  .getParameter()
+
+{
+  "name": "AMAZON.WeatherAlert.Activated",
+  "payload": {
+    "weatherAlert": {
+      "source": "example source",
+      "alertType": "HURRICANE"
     }
   }
 }

@@ -3,7 +3,8 @@ import {
 } from '../model'
 import {
     isAvailability,
-    isCreativeWork
+    isCreativeWork,
+    isWeatherAlert
 } from './typeGuards'
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const getCreativeWork = (obj: any): Types.CreativeWork => {
@@ -23,4 +24,15 @@ export const getAvailability = (obj: any): Types.Availability => {
         return newProps
     }
     throw new Error('Invalid Availability object')
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const getWeatherAlert = (obj: any): Types.WeatherAlert => {
+    if (isWeatherAlert(obj)) {
+        const { alertType, source } = obj
+        const newProps: Types.WeatherAlert = { alertType }
+        if (source) newProps.source = source
+        return newProps
+    }
+    throw new Error('Invalid WeatherAlert object')
 }

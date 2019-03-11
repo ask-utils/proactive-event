@@ -28,3 +28,9 @@ export const isAvailability = (obj: any): obj is Types.Availability => {
     if (!obj.startTime || !obj.method) return false
     return true
 }
+
+export const isWeatherAlert = (obj: any): obj is Types.WeatherAlert => {
+    if (isEmpty(obj)) return false
+    if (!obj.alertType) return false
+    return true
+}

@@ -4,7 +4,8 @@ import {
   isObject,
   isEmpty,
   isAvailability,
-  isCreativeWork
+  isCreativeWork,
+  isWeatherAlert
 } from '../../../libs/helpers/typeGuards'
 
 const object = {hoge: true}
@@ -147,6 +148,33 @@ describe('/libs/helpers/typeGuards.ts', () => {
       expect(isAvailability({
         startTime: 'hello',
         method: 'type'
+      })).toEqual(true)
+    })
+  })
+  describe('isWeatherAlert()', () => {
+    it('should return false when given null', () => {
+      expect(isWeatherAlert(null)).toEqual(false)
+    })
+    it('should return false when given undefined', () => {
+      expect(isWeatherAlert(undefined)).toEqual(false)
+    })
+    it('should return false when given number', () => {
+      expect(isWeatherAlert(100)).toEqual(false)
+    })
+    it('should return false when given string', () => {
+      expect(isWeatherAlert('string')).toEqual(false)
+    })
+    it('should return false when given empty object', () => {
+      expect(isWeatherAlert({})).toEqual(false)
+    })
+    it('should return false when given invalid object', () => {
+      expect(isWeatherAlert({
+        startTime: 'hello',
+      })).toEqual(false)
+    })
+    it('should return true when given object', () => {
+      expect(isWeatherAlert({
+        alertType: 'hoge'
       })).toEqual(true)
     })
   })
