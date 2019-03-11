@@ -3,6 +3,7 @@ import {
     Types
 } from '../model'
 
+// general
 export const isNumber = (arg: any): arg is number => {
     return typeof arg === 'number'
 }
@@ -18,6 +19,8 @@ export const isEmpty = (obj: any): boolean => {
     if (!isObject(obj)) return true
     return Object.keys(obj).length < 1
 }
+
+// specific
 export const isCreativeWork = (obj: any): obj is Types.CreativeWork => {
     if (isEmpty(obj)) return false
     if (!obj.name || !obj.contentType) return false
@@ -32,5 +35,16 @@ export const isAvailability = (obj: any): obj is Types.Availability => {
 export const isWeatherAlert = (obj: any): obj is Types.WeatherAlert => {
     if (isEmpty(obj)) return false
     if (!obj.alertType) return false
+    return true
+}
+export const isMessageState = (obj: any): obj is Types.MessageState => {
+    if (isEmpty(obj)) return false
+    if (!obj.status) return false
+    return true
+}
+
+export const isMessageGroup = (obj: any): obj is Types.MessageGroup => {
+    if (isEmpty(obj)) return false
+    if (!obj.creator || !obj.count) return false
     return true
 }

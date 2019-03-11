@@ -4,7 +4,9 @@ import {
 import {
     isAvailability,
     isCreativeWork,
-    isWeatherAlert
+    isWeatherAlert,
+    isMessageState,
+    isMessageGroup,
 } from './typeGuards'
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const getCreativeWork = (obj: any): Types.CreativeWork => {
@@ -35,4 +37,24 @@ export const getWeatherAlert = (obj: any): Types.WeatherAlert => {
         return newProps
     }
     throw new Error('Invalid WeatherAlert object')
+}
+
+export const getMessageState = (obj: any): Types.MessageState => {
+  if (isMessageState(obj)) {
+      const { status, freshness } = obj
+      const newProps: Types.MessageState = { status }
+      if (freshness) newProps.freshness = freshness
+      return newProps
+  }
+  throw new Error('Invalid MessageState object')
+}
+
+export const getMessageGroup = (obj: any): Types.MessageGroup => {
+  if (isMessageGroup(obj)) {
+      const { creator, count, urgency } = obj
+      const newProps: Types.MessageGroup = { creator, count }
+      if (urgency) newProps.urgency = urgency
+      return newProps
+  }
+  throw new Error('Invalid MessageGroup object')
 }

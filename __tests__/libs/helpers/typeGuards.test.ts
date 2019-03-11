@@ -5,28 +5,36 @@ import {
   isEmpty,
   isAvailability,
   isCreativeWork,
-  isWeatherAlert
+  isWeatherAlert,
+  isMessageGroup,
+  isMessageState
 } from '../../../libs/helpers/typeGuards'
 
 const object = {hoge: true}
 
+const execGenericTests = (func: Function, allowEmptyObj: boolean = false) => {
+  it('should return false when given null', () => {
+    expect(func(null)).toEqual(false)
+  })
+  it('should return false when given undefined', () => {
+    expect(func(undefined)).toEqual(false)
+  })
+  it('should return false when given number', () => {
+    expect(func(100)).toEqual(false)
+  })
+  it('should return false when given string', () => {
+    expect(func('string')).toEqual(false)
+  })
+  if (allowEmptyObj) {
+    it('should return false when given empty object', () => {
+      expect(func({})).toEqual(true)
+    })
+  }
+}
+
 describe('/libs/helpers/typeGuards.ts', () => {
   describe('isObject()', () => {
-    it('should return false when given null', () => {
-      expect(isObject(null)).toEqual(false)
-    })
-    it('should return false when given undefined', () => {
-      expect(isObject(undefined)).toEqual(false)
-    })
-    it('should return false when given number', () => {
-      expect(isObject(100)).toEqual(false)
-    })
-    it('should return false when given string', () => {
-      expect(isObject('string')).toEqual(false)
-    })
-    it('should return false when given empty object', () => {
-      expect(isObject({})).toEqual(true)
-    })
+    execGenericTests(isObject, true)
     it('should return false when given object', () => {
       expect(isObject(object)).toEqual(true)
     })
@@ -86,21 +94,7 @@ describe('/libs/helpers/typeGuards.ts', () => {
     })
   })
   describe('isCreativeWork()', () => {
-    it('should return false when given null', () => {
-      expect(isCreativeWork(null)).toEqual(false)
-    })
-    it('should return false when given undefined', () => {
-      expect(isCreativeWork(undefined)).toEqual(false)
-    })
-    it('should return false when given number', () => {
-      expect(isCreativeWork(100)).toEqual(false)
-    })
-    it('should return false when given string', () => {
-      expect(isCreativeWork('string')).toEqual(false)
-    })
-    it('should return false when given empty object', () => {
-      expect(isCreativeWork({})).toEqual(false)
-    })
+    execGenericTests(isCreativeWork)
     it('should return false when given object', () => {
       expect(isCreativeWork({
         name: 'hello',
@@ -119,21 +113,7 @@ describe('/libs/helpers/typeGuards.ts', () => {
     })
   })
   describe('isAvailability()', () => {
-    it('should return false when given null', () => {
-      expect(isAvailability(null)).toEqual(false)
-    })
-    it('should return false when given undefined', () => {
-      expect(isAvailability(undefined)).toEqual(false)
-    })
-    it('should return false when given number', () => {
-      expect(isAvailability(100)).toEqual(false)
-    })
-    it('should return false when given string', () => {
-      expect(isAvailability('string')).toEqual(false)
-    })
-    it('should return false when given empty object', () => {
-      expect(isAvailability({})).toEqual(false)
-    })
+    execGenericTests(isAvailability)
     it('should return false when given object', () => {
       expect(isAvailability({
         startTime: 'hello',
@@ -152,21 +132,7 @@ describe('/libs/helpers/typeGuards.ts', () => {
     })
   })
   describe('isWeatherAlert()', () => {
-    it('should return false when given null', () => {
-      expect(isWeatherAlert(null)).toEqual(false)
-    })
-    it('should return false when given undefined', () => {
-      expect(isWeatherAlert(undefined)).toEqual(false)
-    })
-    it('should return false when given number', () => {
-      expect(isWeatherAlert(100)).toEqual(false)
-    })
-    it('should return false when given string', () => {
-      expect(isWeatherAlert('string')).toEqual(false)
-    })
-    it('should return false when given empty object', () => {
-      expect(isWeatherAlert({})).toEqual(false)
-    })
+    execGenericTests(isWeatherAlert)
     it('should return false when given invalid object', () => {
       expect(isWeatherAlert({
         startTime: 'hello',
@@ -175,6 +141,38 @@ describe('/libs/helpers/typeGuards.ts', () => {
     it('should return true when given object', () => {
       expect(isWeatherAlert({
         alertType: 'hoge'
+      })).toEqual(true)
+    })
+  })
+  describe('isMessageGroup()', () => {
+    execGenericTests(isMessageGroup)
+    it('should return false when given invalid object', () => {
+      expect(isMessageGroup({
+        startTime: 'hello',
+      })).toEqual(false)
+    })
+    it('should return false when given invalid object', () => {
+      expect(isMessageGroup({
+        creator: 'hoge',
+      })).toEqual(false)
+    })
+    it('should return true when given object', () => {
+      expect(isMessageGroup({
+        creator: 'hoge',
+        count: 1
+      })).toEqual(true)
+    })
+  })
+  describe('isMessageState()', () => {
+    execGenericTests(isMessageState)
+    it('should return false when given invalid object', () => {
+      expect(isMessageState({
+        startTime: 'hello',
+      })).toEqual(false)
+    })
+    it('should return true when given object', () => {
+      expect(isMessageState({
+        status: 'hoge'
       })).toEqual(true)
     })
   })

@@ -18,7 +18,7 @@ $ npm i -S @ask-utils/proactive-event
 #### AMAZON.MediaContent.Available
 
 ```typescript
-import { MediaContent } from '../../dist/index'
+import { MediaContent } from '@ask-utils/proactive-event'
 
 const PayloadBuilder = MediaContent.Available.PayloadFactory.init()
 PayloadBuilder
@@ -46,7 +46,7 @@ PayloadBuilder
 #### AMAZON.TrashCollectionAlert.Activated
 
 ```typescript
-import { TrashCollectionAlert } from '../../dist/index'
+import { TrashCollectionAlert } from '@ask-utils/proactive-event'
 
 const PayloadBuilder = TrashCollectionAlert.Activated.PayloadFactory.init()
 PayloadBuilder
@@ -74,7 +74,7 @@ PayloadBuilder
 ### AMAZON.WeatherAlert.Activated
 
 ```typescript
-import { WeatherAlert } from '../../dist/index'
+import { WeatherAlert } from '@ask-utils/proactive-event'
 
 const PayloadBuilder = WeatherAlert.Activated.PayloadFactory.init()
 PayloadBuilder
@@ -88,6 +88,33 @@ PayloadBuilder
     "weatherAlert": {
       "source": "example source",
       "alertType": "HURRICANE"
+    }
+  }
+}
+```
+
+### AMAZON.MessageAlert.Activated
+
+```typescript
+import { MessageAlert } from '@ask-utils/proactive-event'
+const PayloadBuilder = MessageAlert.Activated.PayloadFactory.init()
+
+PayloadBuilder.setMessageCreator('john')
+    .setMessageCount(1)
+    .setMessageStatus('FLAGGED')
+    .getParameter()
+
+{
+  "name": "AMAZON.MessageAlert.Activated",
+  "payload": {
+    "messageGroup": {
+      "count": 1,
+      "creator": {
+        "name": "john"
+      }
+    },
+    "state": {
+      "status": "FLAGGED"
     }
   }
 }

@@ -103,10 +103,11 @@ export namespace Types {
     }
     export type MessageStatus = 'UNREAD' | 'FLAGGED'
     export type MessageFreshness = 'NEW' | 'OVERDUE'
+    export type MessageUrgent = 'URGENT'
     export interface MessageGroup {
         creator: Types.Person;
         count: number;
-        urgency?: 'URGENT';
+        urgency?: MessageUrgent;
     }
 }
 
@@ -229,6 +230,7 @@ export namespace interfaces {
         }
     }
     export namespace WeatherAlert {
+        export type PayloadBuilder = Activated.PayloadBuilder
         export namespace Activated {
             export interface PayloadBuilder extends interfaces.PayloadBuilder {
                 setAlertSource(source?: string): PayloadBuilder;
@@ -248,11 +250,18 @@ export namespace interfaces {
         }
     }
     export namespace MessageAlert {
-        export interface PayloadBuilder extends interfaces.PayloadBuilder {
-            setEventType(eventName: event.MessageAlert.EventName): PayloadBuilder;
-            setPayload(payload: event.MessageAlert.Payload): PayloadBuilder;
-            getEventType(): event.MessageAlert.EventName;
-            getPayload(): event.MessageAlert.Payload;
+        export type PayloadBuilder = Activated.PayloadBuilder
+        export namespace Activated {
+          export interface PayloadBuilder extends interfaces.PayloadBuilder {     
+              setMessageCreator(name: string) : PayloadBuilder
+              setMessageCount(count: number) : PayloadBuilder
+              setMessageUrgency(urgency?: Types.MessageUrgent) : PayloadBuilder
+              setMessageFreshness(freshness: Types.MessageFreshness) : PayloadBuilder
+              setMessageStatus(messageStatus: Types.MessageStatus) : PayloadBuilder
+              getEventName (): event.MessageAlert.Activated.EventName;
+              getParameter(): event.Props<event.MessageAlert.Activated.EventName, event.MessageAlert.Activated.Payload>;
+              getPayload(): event.MessageAlert.Payload;
+          }
         }
     }
     export namespace OrderStatus {

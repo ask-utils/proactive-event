@@ -1,6 +1,5 @@
 import ParameterFactory from '../../../../libs/WeatherAlert/Activated/PayloadFactory'
 
-
 describe('/libs/WeatherAlert/Activated/PayloadFactory.test.ts', () => {
   it('should not throw error when init the class', () => {
     expect(() => ParameterFactory.init()).not.toThrow()
