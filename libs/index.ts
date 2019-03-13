@@ -4,6 +4,7 @@ import _WeatherAlert from './WeatherAlert'
 import _MessageAlert from './MessageAlert'
 import _Occasion from "./Occasion";
 import _OrderStatus from './OrderStatus'
+import _SocialGameInvite from './SocialGameInvite'
 
 // client
 import _ProactiveClient from './clients'
@@ -15,6 +16,7 @@ export const MessageAlert = _MessageAlert
 export const Occasion = _Occasion
 export const Client = _ProactiveClient
 export const OrderStatus = _OrderStatus
+export const SocialGameInvite = _SocialGameInvite
 
 
 export default {
@@ -24,5 +26,6 @@ export default {
     MessageAlert,
     Occasion,
     OrderStatus,
+    SocialGameInvite,
     Client
 }

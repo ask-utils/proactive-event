@@ -120,6 +120,18 @@ PayloadBuilder.setMessageCreator('john')
 }
 ```
 
+### AMAZON.Occasion.Updated
+[Now updating docs]
+
+### AMAZON.OrderStatus.Updated
+[Now updating docs]
+
+### AMAZON.SocialGameInvite.Available
+[Now updating docs]
+
+### AMAZON.SportsEvent.Updated
+[WIP]
+
 ## development
 
 ```
