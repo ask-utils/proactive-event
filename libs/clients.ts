@@ -1,6 +1,6 @@
 import axios from 'axios'
 import moment from 'moment'
-
+import uuid from 'uuid'
 import {
   event,
   client
@@ -42,8 +42,18 @@ export default class ProactiveClient {
     this.apiEndpoint = getApiEndpoint(config)
     this.body = {
       timestamp: moment().toISOString(),
-      event: {}
+      expiryTime: moment().add(1, 'days').toISOString(),
+      event: {},
+      relevantAudience: 'Multicast',
+      referenceId: uuid.v4()
     }
+    return this
+  }
+  getReferenceId(): string {
+    return this.body.referenceId
+  }
+  updateReferenceId(id: string) {
+    this.body.referenceId = id
     return this
   }
   async getAccessToken(): Promise<client.AuthResponse> {
@@ -75,6 +85,10 @@ export default class ProactiveClient {
     this.body.expiryTime = moment(date).toISOString()
     return this
   }
+  setBody(body: event.Props) {
+    this.body = body
+    return this
+  }
   setPayload(payload: event.Payload) {
     this.body.event.payload = payload
     return this
@@ -92,10 +106,10 @@ export default class ProactiveClient {
       type
     }
     if (type === 'Unicast') relevantAudience.payload
-    this.body.event.relevantAudience = relevantAudience
+    this.body.relevantAudience = relevantAudience
     return this
   }
-  getBody() {
+  getBody(): client.RequstBody {
     return this.body
   }
   getRequestParams(accessToken: string) {
@@ -109,10 +123,28 @@ export default class ProactiveClient {
       data: this.getBody()
     }
   }
-  async requestEvent() {
+  async requestEvent(): Promise<client.Response> {
     const authResult = await this.getAccessToken()
     if (!authResult.access_token) throw new Error('missing access_token')
     const param = this.getRequestParams(authResult.access_token)
-    return axios(param)
+    try {
+      const response = await axios(param)
+      return {
+        statusCode: response.status,
+        message: response.statusText,
+        request: this.getBody()
+      }
+    } catch (e) {
+      if (!e.response) throw e
+      const err = {
+        statusCode: 500,
+        errorCode: 'Error',
+        message: 'Internal Error'
+      }
+      if (e.response.data && e.response.data.message) err.message = e.response.data.message
+      if (e.response.status) err.statusCode = e.response.status
+      if (e.response.statusText) err.errorCode = e.response.statusText
+      throw err
+    }
   }
 }

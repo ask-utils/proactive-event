@@ -241,6 +241,21 @@ export namespace client {
     type: AudienceType
     payload?: AudiencePayload
   }
+  export type RequstBody = {
+    timestamp: string
+    expiryTime: string
+    event: {
+      payload: event.Payload
+      name: event.EventName
+      relevantAudience: RelevantAudience
+      refereneId: string
+    }
+  }
+  export type Response = {
+    statusCode: number
+    message: string
+    request: RequstBody
+  }
 }
 
 export namespace interfaces {
