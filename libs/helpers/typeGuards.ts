@@ -48,3 +48,26 @@ export const isMessageGroup = (obj: any): obj is Types.MessageGroup => {
     if (!obj.creator || !obj.count) return false
     return true
 }
+
+export const isOccasion = (obj: any): obj is Types.Occasion => {
+    if (isEmpty(obj)) return false
+    if (!obj.occasionType || !obj.subject || !obj.provider || !obj.bookingTime) return false
+    return true
+}
+
+export const isOrderState = (obj: any): obj is Types.OrderState => {
+    if (isEmpty(obj)) return false
+    if (!obj.status) return false
+    return true
+}
+
+export const isGame = (obj: any): obj is Types.Game => {
+    if (isEmpty(obj)) return false
+    if (!obj.name || !obj.offer) return false
+    return true
+}
+export const isGameInvite = (obj: any): obj is Types.GameInvite => {
+    if (isEmpty(obj)) return false
+    if (!obj.relationshipToInvitee || !obj.inviter || !obj.inviteType) return false
+    return true
+}

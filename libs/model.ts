@@ -30,7 +30,7 @@ export namespace Types {
     }
     export interface Game {
         offer: OfferType;
-        name: 'localizedattribute:gameName';
+        name: string //'localizedattribute:gameName';
     }
 
     export type ConfirmationStatus = 'CONFIRMED' | 'CANCELED' | 'RESCHEDULED' | 'REQUESTED' | 'CREATED' | 'UPDATED'
@@ -39,10 +39,10 @@ export namespace Types {
         confirmationStatus: ConfirmationStatus;
     }
     export interface Ogranization {
-        name: 'localizedattribute:providerName';
+        name: string //'localizedattribute:providerName';
     }
     export interface Skill {
-        name: 'localizedattribute:brokerName';
+        name: string //'localizedattribute:brokerName';
     }
     export interface Occasion {
         occasionType: OccasionType;
@@ -61,7 +61,7 @@ export namespace Types {
     }
     export interface Order {
         seller: {
-            name: 'localizedattribute:sellerName';
+            name: string // 'localizedattribute:sellerName';
         };
     }
     export type OrderStatus = 'PREORDER_RECEIVED' | 'ORDER_RECEIVED' | 'ORDER_PREPARING' | 'ORDER_SHIPPED' | 'ORDER_OUT_FOR_DELIVERY' | 'ORDER_OUT_FOR_DELIVERY' | 'ORDER_DELIVERED'
@@ -108,6 +108,9 @@ export namespace Types {
         creator: Types.Person;
         count: number;
         urgency?: MessageUrgent;
+    }
+    export interface LocalizedAttributes {
+      [name: string]: string;
     }
 }
 
@@ -202,10 +205,6 @@ export namespace event {
                 invite: Types.GameInvite;
                 game: Types.Game;
             }
-            export type LocalizedAttributes = {
-                locale: Types.locale;
-                gameName: string;
-            }[]
         }
     }
 }
@@ -293,7 +292,7 @@ export namespace interfaces {
         export interface PayloadBuilder extends interfaces.PayloadBuilder {
             setEventType(eventName: event.SportsEvent.EventName): PayloadBuilder;
             setPayload(payload: event.SportsEvent.Payload): PayloadBuilder;
-            getEventType(): event.SportsEvent.EventName;
+            getEventName(): event.SportsEvent.EventName;
             getPayload(): event.SportsEvent.Payload;
         }
     }
@@ -313,20 +312,36 @@ export namespace interfaces {
         }
     }
     export namespace OrderStatus {
+      export type PayloadBuilder = Updated.PayloadBuilder
+      export namespace Updated {
         export interface PayloadBuilder extends interfaces.PayloadBuilder {
-            setEventType(eventName: event.OrderStatus.EventName): PayloadBuilder;
-            setPayload(payload: event.OrderStatus.Payload): PayloadBuilder;
-            getEventType(): event.OrderStatus.EventName;
-            getPayload(): event.OrderStatus.Payload;
+            setOrderStatus(status: Types.OrderStatus): PayloadBuilder;
+            setEnterTimestamp(date: Date): PayloadBuilder;
+            setExpectedArrival(date: Date): PayloadBuilder;
+            updateSellerName(name: string): PayloadBuilder;
+            getEventName(): event.OrderStatus.EventName;
+            getPayload(): event.OrderStatus.Updated.Payload;
+            getParameter(): event.Props<event.OrderStatus.Updated.EventName, event.OrderStatus.Updated.Payload>;
         }
+      }
     }
     export namespace Occasion {
+      export type PayloadBuilder = Updated.PayloadBuilder
+      export namespace Updated {
         export interface PayloadBuilder extends interfaces.PayloadBuilder {
-            setEventType(eventName: event.Occasion.EventName): PayloadBuilder;
-            setPayload(payload: event.Occasion.Payload): PayloadBuilder;
-            getEventType(): event.Occasion.EventName;
+            updateConfirmationStatus(status: Types.ConfirmationStatus): PayloadBuilder;
+            setOccasionType(type: Types.OccasionType): PayloadBuilder;
+            setSubject(subject: string): PayloadBuilder;
+            setProviderName(name: string): PayloadBuilder;
+            setBookingTime(date: Date): PayloadBuilder
+            setBrokerName(name: string): PayloadBuilder;
+            getEventName(): event.Occasion.Updated.EventName;
+            getConfirmationState(): Types.ConfirmationState;
+            getConfirmationStatus(): Types.ConfirmationStatus;
             getPayload(): event.Occasion.Payload;
+            getParameter(): event.Props<event.Occasion.Updated.EventName, event.Occasion.Updated.Payload>;
         }
+      }
     }
     export namespace MediaContent {
         export namespace Available {
@@ -343,11 +358,16 @@ export namespace interfaces {
         }
     }
     export namespace SocialGameInvite {
+      export namespace Available {
         export interface PayloadBuilder extends interfaces.PayloadBuilder {
-            setEventType(eventName: event.SocialGameInvite.EventName): PayloadBuilder;
-            setPayload(payload: event.SocialGameInvite.Payload): PayloadBuilder;
-            getEventType(): event.SocialGameInvite.EventName;
-            getPayload(): event.SocialGameInvite.Payload;
+            setInviterName(name: string): PayloadBuilder;
+            setRelationshipToInvitee(relation: Types.RelationshipToInvitee): PayloadBuilder;
+            setInviteType(type: Types.InviteType): PayloadBuilder;
+            setGameName(name: string): PayloadBuilder;
+            setGameOfferName(name: Types.OfferType): PayloadBuilder;
+            getEventName(): event.SocialGameInvite.Available.EventName;
+            getPayload(): event.SocialGameInvite.Available.Payload;
         }
+      }
     }
 }
