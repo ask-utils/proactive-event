@@ -148,7 +148,6 @@ const client = new Client({
 
 const PayloadBuilder = MediaContent.Available.PayloadFactory.init()
 PayloadBuilder
-  .setContentName()
   .setMediaType('ALBUM')
   .setStartTime(moment('2019-03-11T10:05:58.561Z').toDate())
   .setDistributionMethod('AIR')
@@ -168,7 +167,6 @@ import { MediaContent } from 'ask-utils-proactive-event'
 
 const PayloadBuilder = MediaContent.Available.PayloadFactory.init()
 PayloadBuilder
-  .setContentName()
   .setMediaType('ALBUM')
   .setStartTime(moment('2019-03-11T10:05:58.561Z').toDate())
   .setDistributionMethod('AIR')

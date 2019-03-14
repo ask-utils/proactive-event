@@ -34,20 +34,10 @@ describe('/libs/MediaContent/Available/PayloadFactory.ts', () => {
           .getParameter()
       }).toThrowError('Invalid creative work object')
     })
-    it('should throw error when content prop is not complete', () => {
-      expect(() => {
-        PayloadBuilder
-          .setStartTime(moment('2019-03-11T10:05:58.561Z').toDate())
-          .setDistributionMethod('AIR')
-          .setMediaType('ALBUM')
-          .getParameter()
-      }).toThrowError('Invalid creative work object')
-    })
   })
   describe('getParameter', () => {
     it('should return valid object [no provider]', () => {
       const parameter = PayloadBuilder
-        .setContentName()
         .setMediaType('ALBUM')
         .setStartTime(moment('2019-03-11T10:05:58.561Z').toDate())
         .setDistributionMethod('AIR')
@@ -68,7 +58,6 @@ describe('/libs/MediaContent/Available/PayloadFactory.ts', () => {
     })
     it('should return valid object [FULL Attributes]', () => {
       const parameter = PayloadBuilder
-        .setContentName()
         .setMediaType('ALBUM')
         .setStartTime(moment('2019-03-11T10:05:58.561Z').toDate())
         .setDistributionMethod('AIR')
