@@ -121,14 +121,100 @@ PayloadBuilder.setMessageCreator('john')
 ```
 
 ### AMAZON.Occasion.Updated
-[Now updating docs]
+
+
+```typescript
+import { Occasion } from '@ask-utils/proactive-event'
+const PayloadBuilder = Occasion.Updated.PayloadFactory.init()
+
+PayloadBuilder
+  .setBookingTime(new Date())
+  .setOccasionType('APPOINTMENT')
+  .setSubject('subject')
+  .getParameter()
+
+{
+  "name": "AMAZON.Occasion.Updated",
+  "payload": {
+    "state": {
+      "confirmationStatus": "CONFIRMED"
+    },
+    "occasion": {
+      "occasionType": "APPOINTMENT",
+      "subject": "subject",
+      "provider": {
+        "name": "localizedattribute:providerName"
+      },
+      "bookingTime": "2019-03-14T04:24:15.097Z",
+      "broker": {
+        "name": "localizedattribute:brokerName"
+      }
+    }
+  }
+}
+
+```
 
 ### AMAZON.OrderStatus.Updated
-[Now updating docs]
+
+```typescript
+import { OrderStatus } from '@ask-utils/proactive-event'
+const PayloadBuilder = OrderStatus.Updated.PayloadFactory.init()
+
+PayloadBuilder
+  .setEnterTimestamp(new Date())
+  .setExpectedArrival(new Date())
+  .setOrderStatus('ORDER_DELIVERED')
+  .getParameter()
+
+{
+  "name": "AMAZON.OrderStatus.Updated",
+  "payload": {
+    "state": {
+      "status": "ORDER_DELIVERED",
+      "enterTimestamp": "2019-03-14T04:25:46.031Z",
+      "deliveryDetails": {
+        "expectedArrival": "2019-03-14T04:25:46.033Z"
+      }
+    },
+    "order": {
+      "seller": {
+        "name": "localizedattribute:sellerName"
+      }
+    }
+  }
+}
+```
 
 ### AMAZON.SocialGameInvite.Available
-[Now updating docs]
 
+```typescript
+import { SocialGameInvite } from '@ask-utils/proactive-event'
+const PayloadBuilder = SocialGameInvite.Available.PayloadFactory.init()
+
+PayloadBuilder.setGameName('Game')
+  .setGameOfferName('MATCH')
+  .setInviteType('CHALLENGE')
+  .setRelationshipToInvitee('FRIEND')
+  .getParameter()
+
+{
+  "name": "AMAZON.SocialGameInvite.Available",
+  "payload": {
+    "invite": {
+      "inviteType": "CHALLENGE",
+      "inviter": {
+        "name": ""
+      },
+      "relationshipToInvitee": "FRIEND"
+    },
+    "game": {
+      "offer": "MATCH",
+      "name": "Game"
+    }
+  }
+}
+```
 ### AMAZON.SportsEvent.Updated
 [WIP]
 

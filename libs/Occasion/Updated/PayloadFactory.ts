@@ -38,7 +38,7 @@ export default class ParameterFactory {
               return confirmationState.confirmationStatus
             },
             setOccasionType(type: Types.OccasionType) {
-              occasion.OccasionType = type
+              occasion.occasionType = type
               return this
             },
             setSubject(subject: string) {
