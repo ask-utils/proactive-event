@@ -1,0 +1,582 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>@ask-utils/proactive-event</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.js" data-base=".">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="index.html" class="title">@ask-utils/proactive-event</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+							<input type="checkbox" id="tsd-filter-only-exported" />
+							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="globals.html">Globals</a>
+				</li>
+			</ul>
+			<h1> @ask-utils/proactive-event</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<div class="tsd-panel tsd-typography">
+				<h1 id="ask-utils-utility-functions-for-ask-sdk">ASK-Utils - Utility functions for ask-sdk</h1>
+				<p><a href="https://travis-ci.org/ask-utils/proactive-event"><img src="https://travis-ci.org/ask-utils/proactive-event.svg?branch=master" alt="Build Status"></a>
+					<a href="https://badge.fury.io/js/ask-utils"><img src="https://badge.fury.io/js/ask-utils.svg" alt="npm version"></a>
+				<img src="https://raw.githubusercontent.com/ask-utils/proactive-event/master/docs/img/logo.png" alt="logo"></p>
+				<p><a href="https://ask-utils.github.io/ask-utils/">https://ask-utils.github.io/ask-utils/</a></p>
+				<h2 id="getting-started">Getting started</h2>
+				<pre><code>$ <span class="hljs-built_in">npm</span> i -S @ask-utils/proactive-event</code></pre><h2 id="usage">Usage</h2>
+				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> { Client, MediaContent } <span class="hljs-keyword">from</span> <span class="hljs-string">'@ask-utils/proactive-event'</span>
+
+<span class="hljs-comment">// setup client</span>
+<span class="hljs-keyword">const</span> clientSecret = <span class="hljs-string">'XXXXXXXXXXXXXX'</span>
+<span class="hljs-keyword">const</span> client = <span class="hljs-keyword">new</span> Client({
+  clientId: <span class="hljs-string">'amzn1.application-oa2-client.XXXXXXXXX'</span>,
+  clientSecret: <span class="hljs-string">'XXXXXXXXXXXXXX'</span>,
+  apiRegion: <span class="hljs-string">'FE'</span> <span class="hljs-comment">// default: US</span>
+})
+<span class="hljs-comment">// configure event information</span>
+<span class="hljs-keyword">const</span> PayloadBuilder = MediaContent.Available.PayloadFactory.init()
+<span class="hljs-keyword">const</span> parameters = PayloadBuilder
+  .setMediaType(<span class="hljs-string">'ALBUM'</span>)
+  .setStartTime(moment(<span class="hljs-string">'2019-03-11T10:05:58.561Z'</span>).toDate())
+  .setDistributionMethod(<span class="hljs-string">'AIR'</span>)
+  .getParameter()
+<span class="hljs-comment">// configure localizedAttributes</span>
+<span class="hljs-keyword">const</span> localizedAttributes = LocalizedAttributes.Factory.init()
+  .putLocalizedAttribute(<span class="hljs-string">'en-US'</span>, <span class="hljs-string">'contentName'</span>, <span class="hljs-string">'New CD'</span>)
+  .putLocalizedAttribute(<span class="hljs-string">'ja-JP'</span>, <span class="hljs-string">'contentName'</span>, <span class="hljs-string">'あたらしいCD'</span>)
+  .getLocalizedAttributes()
+
+<span class="hljs-comment">// Call proactive event API</span>
+client.setEvent(parameters)
+  .setRelevantAudience(<span class="hljs-string">'Multicast'</span>)
+  .setLocalizedAttributes(localizedAttributes)
+  .requestEvent()
+  .then(<span class="hljs-function"><span class="hljs-params">result</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(result))
+  .catch(<span class="hljs-function"><span class="hljs-params">result</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(result))
+
+<span class="hljs-comment">// requested body</span>
+{
+  <span class="hljs-string">"timestamp"</span>: <span class="hljs-string">"2019-03-14T06:19:23.625Z"</span>,
+  <span class="hljs-string">"expiryTime"</span>: <span class="hljs-string">"2019-03-15T06:19:23.627Z"</span>,
+  <span class="hljs-string">"event"</span>: {
+    <span class="hljs-string">"name"</span>: <span class="hljs-string">"AMAZON.MediaContent.Available"</span>,
+    <span class="hljs-string">"payload"</span>: {
+      <span class="hljs-string">"availability"</span>: {
+        <span class="hljs-string">"method"</span>: <span class="hljs-string">"AIR"</span>,
+        <span class="hljs-string">"startTime"</span>: <span class="hljs-string">"2019-03-11T10:05:58.561Z"</span>
+      },
+      <span class="hljs-string">"content"</span>: {
+        <span class="hljs-string">"name"</span>: <span class="hljs-string">"localizedattribute:contentName"</span>,
+        <span class="hljs-string">"contentType"</span>: <span class="hljs-string">"ALBUM"</span>
+      }
+    }
+  },
+  <span class="hljs-string">"relevantAudience"</span>: {
+    <span class="hljs-string">"type"</span>: <span class="hljs-string">"Multicast"</span>
+  },
+  <span class="hljs-string">"referenceId"</span>: <span class="hljs-string">"9f96ac5e-b341-46bd-b137-6d3b1812ec1d"</span>,
+  <span class="hljs-string">"localizedAttributes"</span>: [
+    {
+      <span class="hljs-string">"locale"</span>: <span class="hljs-string">"en-US"</span>,
+      <span class="hljs-string">"contentName"</span>: <span class="hljs-string">"New CD"</span>
+    },
+    {
+      <span class="hljs-string">"locale"</span>: <span class="hljs-string">"ja-JP"</span>,
+      <span class="hljs-string">"contentName"</span>: <span class="hljs-string">"あたらしいCD"</span>
+    }
+  ]
+}
+</code></pre>
+				<h2 id="features">Features</h2>
+				<h3 id="client">Client</h3>
+				<p>We can easy to call the Proactive event API by the client.</p>
+				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> { Client } <span class="hljs-keyword">from</span> <span class="hljs-string">'@ask-utils/proactive-event'</span>
+
+<span class="hljs-keyword">const</span> clientSecret = <span class="hljs-string">'XXXXXXXXXXXXXX'</span>
+<span class="hljs-keyword">const</span> client = <span class="hljs-keyword">new</span> Client({
+  clientId: <span class="hljs-string">'amzn1.application-oa2-client.XXXXXXXXX'</span>,
+  clientSecret: <span class="hljs-string">'XXXXXXXXXXXXXX'</span>,
+  apiRegion: <span class="hljs-string">'FE'</span> <span class="hljs-comment">// default: US</span>
+})
+
+<span class="hljs-keyword">const</span> payload = {
+  availability: {
+    method: <span class="hljs-string">"AIR"</span>,
+    startTime: <span class="hljs-string">"2019-03-11T10:05:58.561Z"</span>
+  },
+  content: {
+    contentType: <span class="hljs-string">"ALBUM"</span>,
+    name: <span class="hljs-string">"localizedattribute:contentName"</span>
+  }
+}
+
+client.setPayload(payload)
+  .setEventName(<span class="hljs-string">"AMAZON.MediaContent.Available"</span>)
+  .setRelevantAudience(<span class="hljs-string">"Multicast"</span>)
+  .requestEvent()
+  .then(<span class="hljs-function"><span class="hljs-params">result</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(result))
+  .catch(<span class="hljs-function"><span class="hljs-params">result</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(result))</code></pre>
+				<h3 id="localizedattributes-builder">LocalizedAttributes Builder</h3>
+				<p>We can easy to create LocalizedAttributes.</p>
+				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> { LocalizedAttributes } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../dist/index'</span>
+
+<span class="hljs-keyword">const</span> AttributesBuilder = LocalizedAttributes.Factory.init()
+  .putLocalizedAttribute(<span class="hljs-string">'ja-JP'</span>, <span class="hljs-string">'gameName'</span>, <span class="hljs-string">'ポケモン'</span>)
+  .putLocalizedAttribute(<span class="hljs-string">'en-US'</span>, <span class="hljs-string">'gameName'</span>, <span class="hljs-string">'pokemon'</span>)
+  .getLocalizedAttributes()
+
+[
+  { locale: <span class="hljs-string">'ja-JP'</span>, gameName: <span class="hljs-string">'ポケモン'</span> },
+  { locale: <span class="hljs-string">'en-US'</span>, gameName: <span class="hljs-string">'pokemon'</span> }
+]</code></pre>
+				<h3 id="payload-builder">Payload Builder</h3>
+				<p>And we can easy to create request payload by the following builders.</p>
+				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> { Client, MediaContent } <span class="hljs-keyword">from</span> <span class="hljs-string">'@ask-utils/proactive-event'</span>
+
+<span class="hljs-keyword">const</span> clientSecret = <span class="hljs-string">'XXXXXXXXXXXXXX'</span>
+<span class="hljs-keyword">const</span> client = <span class="hljs-keyword">new</span> Client({
+  clientId: <span class="hljs-string">'amzn1.application-oa2-client.XXXXXXXXX'</span>,
+  clientSecret: <span class="hljs-string">'XXXXXXXXXXXXXX'</span>,
+  apiRegion: <span class="hljs-string">'FE'</span> <span class="hljs-comment">// default: US</span>
+})
+
+<span class="hljs-keyword">const</span> PayloadBuilder = MediaContent.Available.PayloadFactory.init()
+PayloadBuilder
+  .setContentName()
+  .setMediaType(<span class="hljs-string">'ALBUM'</span>)
+  .setStartTime(moment(<span class="hljs-string">'2019-03-11T10:05:58.561Z'</span>).toDate())
+  .setDistributionMethod(<span class="hljs-string">'AIR'</span>)
+  .getParameter()
+
+client.setEvent(PayloadBuilder.getParameter())
+  .setRelevantAudience(<span class="hljs-string">"Multicast"</span>)
+  .requestEvent()
+  .then(<span class="hljs-function"><span class="hljs-params">result</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(result))
+  .catch(<span class="hljs-function"><span class="hljs-params">result</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(result))</code></pre>
+				<h4 id="amazon-mediacontent-available">AMAZON.MediaContent.Available</h4>
+				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> { MediaContent } <span class="hljs-keyword">from</span> <span class="hljs-string">'@ask-utils/proactive-event'</span>
+
+<span class="hljs-keyword">const</span> PayloadBuilder = MediaContent.Available.PayloadFactory.init()
+PayloadBuilder
+  .setContentName()
+  .setMediaType(<span class="hljs-string">'ALBUM'</span>)
+  .setStartTime(moment(<span class="hljs-string">'2019-03-11T10:05:58.561Z'</span>).toDate())
+  .setDistributionMethod(<span class="hljs-string">'AIR'</span>)
+  .getParameter()
+
+{
+  <span class="hljs-string">"name"</span>: <span class="hljs-string">"AMAZON.MediaContent.Available"</span>,
+  <span class="hljs-string">"payload"</span>: {
+    <span class="hljs-string">"availability"</span>: {
+      <span class="hljs-string">"method"</span>: <span class="hljs-string">"AIR"</span>,
+      <span class="hljs-string">"startTime"</span>: <span class="hljs-string">"2019-03-11T10:05:58.561Z"</span>
+    },
+    <span class="hljs-string">"content"</span>: {
+      <span class="hljs-string">"contentType"</span>: <span class="hljs-string">"ALBUM"</span>,
+      <span class="hljs-string">"name"</span>: <span class="hljs-string">"localizedattribute:contentName"</span>
+    }
+  }
+}</code></pre>
+				<h4 id="amazon-trashcollectionalert-activated">AMAZON.TrashCollectionAlert.Activated</h4>
+				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> { TrashCollectionAlert } <span class="hljs-keyword">from</span> <span class="hljs-string">'@ask-utils/proactive-event'</span>
+
+<span class="hljs-keyword">const</span> PayloadBuilder = TrashCollectionAlert.Activated.PayloadFactory.init()
+PayloadBuilder
+  .setCollectionDayOfWeek(<span class="hljs-string">'MONDAY'</span>)
+  .addGarbageType(<span class="hljs-string">'BOTTLES'</span>)
+  .addGarbageType(<span class="hljs-string">'BULKY'</span>)
+  .addGarbageType(<span class="hljs-string">'CANS'</span>)
+  .getParameter()
+
+{
+  <span class="hljs-string">"name"</span>: <span class="hljs-string">"AMAZON.TrashCollectionAlert.Activated"</span>,
+  <span class="hljs-string">"payload"</span>: {
+    <span class="hljs-string">"alert"</span>: {
+      <span class="hljs-string">"collectionDayOfWeek"</span>: <span class="hljs-string">"MONDAY"</span>,
+      <span class="hljs-string">"garbageTypes"</span>: [
+        <span class="hljs-string">"BOTTLES"</span>,
+        <span class="hljs-string">'BULKY'</span>,
+        <span class="hljs-string">'CANS'</span>
+      ]
+    }
+  }
+}</code></pre>
+				<h3 id="amazon-weatheralert-activated">AMAZON.WeatherAlert.Activated</h3>
+				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> { WeatherAlert } <span class="hljs-keyword">from</span> <span class="hljs-string">'@ask-utils/proactive-event'</span>
+
+<span class="hljs-keyword">const</span> PayloadBuilder = WeatherAlert.Activated.PayloadFactory.init()
+PayloadBuilder
+  .setAlertType(<span class="hljs-string">'HURRICANE'</span>)
+  .setAlertSource(<span class="hljs-string">'example source'</span>)
+  .getParameter()
+
+{
+  <span class="hljs-string">"name"</span>: <span class="hljs-string">"AMAZON.WeatherAlert.Activated"</span>,
+  <span class="hljs-string">"payload"</span>: {
+    <span class="hljs-string">"weatherAlert"</span>: {
+      <span class="hljs-string">"source"</span>: <span class="hljs-string">"example source"</span>,
+      <span class="hljs-string">"alertType"</span>: <span class="hljs-string">"HURRICANE"</span>
+    }
+  }
+}</code></pre>
+				<h3 id="amazon-messagealert-activated">AMAZON.MessageAlert.Activated</h3>
+				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> { MessageAlert } <span class="hljs-keyword">from</span> <span class="hljs-string">'@ask-utils/proactive-event'</span>
+<span class="hljs-keyword">const</span> PayloadBuilder = MessageAlert.Activated.PayloadFactory.init()
+
+PayloadBuilder.setMessageCreator(<span class="hljs-string">'john'</span>)
+    .setMessageCount(<span class="hljs-number">1</span>)
+    .setMessageStatus(<span class="hljs-string">'FLAGGED'</span>)
+    .getParameter()
+
+{
+  <span class="hljs-string">"name"</span>: <span class="hljs-string">"AMAZON.MessageAlert.Activated"</span>,
+  <span class="hljs-string">"payload"</span>: {
+    <span class="hljs-string">"messageGroup"</span>: {
+      <span class="hljs-string">"count"</span>: <span class="hljs-number">1</span>,
+      <span class="hljs-string">"creator"</span>: {
+        <span class="hljs-string">"name"</span>: <span class="hljs-string">"john"</span>
+      }
+    },
+    <span class="hljs-string">"state"</span>: {
+      <span class="hljs-string">"status"</span>: <span class="hljs-string">"FLAGGED"</span>
+    }
+  }
+}</code></pre>
+				<h3 id="amazon-occasion-updated">AMAZON.Occasion.Updated</h3>
+				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> { Occasion } <span class="hljs-keyword">from</span> <span class="hljs-string">'@ask-utils/proactive-event'</span>
+<span class="hljs-keyword">const</span> PayloadBuilder = Occasion.Updated.PayloadFactory.init()
+
+PayloadBuilder
+  .setBookingTime(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>())
+  .setOccasionType(<span class="hljs-string">'APPOINTMENT'</span>)
+  .setSubject(<span class="hljs-string">'subject'</span>)
+  .getParameter()
+
+{
+  <span class="hljs-string">"name"</span>: <span class="hljs-string">"AMAZON.Occasion.Updated"</span>,
+  <span class="hljs-string">"payload"</span>: {
+    <span class="hljs-string">"state"</span>: {
+      <span class="hljs-string">"confirmationStatus"</span>: <span class="hljs-string">"CONFIRMED"</span>
+    },
+    <span class="hljs-string">"occasion"</span>: {
+      <span class="hljs-string">"occasionType"</span>: <span class="hljs-string">"APPOINTMENT"</span>,
+      <span class="hljs-string">"subject"</span>: <span class="hljs-string">"subject"</span>,
+      <span class="hljs-string">"provider"</span>: {
+        <span class="hljs-string">"name"</span>: <span class="hljs-string">"localizedattribute:providerName"</span>
+      },
+      <span class="hljs-string">"bookingTime"</span>: <span class="hljs-string">"2019-03-14T04:24:15.097Z"</span>,
+      <span class="hljs-string">"broker"</span>: {
+        <span class="hljs-string">"name"</span>: <span class="hljs-string">"localizedattribute:brokerName"</span>
+      }
+    }
+  }
+}
+</code></pre>
+				<h3 id="amazon-orderstatus-updated">AMAZON.OrderStatus.Updated</h3>
+				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> { OrderStatus } <span class="hljs-keyword">from</span> <span class="hljs-string">'@ask-utils/proactive-event'</span>
+<span class="hljs-keyword">const</span> PayloadBuilder = OrderStatus.Updated.PayloadFactory.init()
+
+PayloadBuilder
+  .setEnterTimestamp(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>())
+  .setExpectedArrival(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>())
+  .setOrderStatus(<span class="hljs-string">'ORDER_DELIVERED'</span>)
+  .getParameter()
+
+{
+  <span class="hljs-string">"name"</span>: <span class="hljs-string">"AMAZON.OrderStatus.Updated"</span>,
+  <span class="hljs-string">"payload"</span>: {
+    <span class="hljs-string">"state"</span>: {
+      <span class="hljs-string">"status"</span>: <span class="hljs-string">"ORDER_DELIVERED"</span>,
+      <span class="hljs-string">"enterTimestamp"</span>: <span class="hljs-string">"2019-03-14T04:25:46.031Z"</span>,
+      <span class="hljs-string">"deliveryDetails"</span>: {
+        <span class="hljs-string">"expectedArrival"</span>: <span class="hljs-string">"2019-03-14T04:25:46.033Z"</span>
+      }
+    },
+    <span class="hljs-string">"order"</span>: {
+      <span class="hljs-string">"seller"</span>: {
+        <span class="hljs-string">"name"</span>: <span class="hljs-string">"localizedattribute:sellerName"</span>
+      }
+    }
+  }
+}</code></pre>
+				<h3 id="amazon-socialgameinvite-available">AMAZON.SocialGameInvite.Available</h3>
+				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> { SocialGameInvite } <span class="hljs-keyword">from</span> <span class="hljs-string">'@ask-utils/proactive-event'</span>
+<span class="hljs-keyword">const</span> PayloadBuilder = SocialGameInvite.Available.PayloadFactory.init()
+
+PayloadBuilder.setGameName(<span class="hljs-string">'Game'</span>)
+  .setGameOfferName(<span class="hljs-string">'MATCH'</span>)
+  .setInviteType(<span class="hljs-string">'CHALLENGE'</span>)
+  .setRelationshipToInvitee(<span class="hljs-string">'FRIEND'</span>)
+  .getParameter()
+
+{
+  <span class="hljs-string">"name"</span>: <span class="hljs-string">"AMAZON.SocialGameInvite.Available"</span>,
+  <span class="hljs-string">"payload"</span>: {
+    <span class="hljs-string">"invite"</span>: {
+      <span class="hljs-string">"inviteType"</span>: <span class="hljs-string">"CHALLENGE"</span>,
+      <span class="hljs-string">"inviter"</span>: {
+        <span class="hljs-string">"name"</span>: <span class="hljs-string">""</span>
+      },
+      <span class="hljs-string">"relationshipToInvitee"</span>: <span class="hljs-string">"FRIEND"</span>
+    },
+    <span class="hljs-string">"game"</span>: {
+      <span class="hljs-string">"offer"</span>: <span class="hljs-string">"MATCH"</span>,
+      <span class="hljs-string">"name"</span>: <span class="hljs-string">"Game"</span>
+    }
+  }
+}</code></pre>
+				<h3 id="amazon-sportsevent-updated">AMAZON.SportsEvent.Updated</h3>
+				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> { SportsEvent } <span class="hljs-keyword">from</span> <span class="hljs-string">'@ask-utils/proactive-event'</span>
+
+SportsEvent.Updated.PayloadFactory.init()
+  .setAwayTeamStatistic(<span class="hljs-string">'away'</span>, <span class="hljs-number">10</span>)
+  .setHomeTeamStatistic(<span class="hljs-string">'home'</span>, <span class="hljs-number">0</span>)
+  .getParameter()
+
+{
+  <span class="hljs-string">"name"</span>: <span class="hljs-string">"AMAZON.SportsEvent.Updated"</span>,
+  <span class="hljs-string">"payload"</span>: {
+    <span class="hljs-string">"sportsEvent"</span>: {
+      <span class="hljs-string">"eventLeague"</span>: {
+        <span class="hljs-string">"name"</span>: <span class="hljs-string">"localizedattribute:eventLeagueName"</span>
+      },
+      <span class="hljs-string">"homeTeamStatistic"</span>: {
+        <span class="hljs-string">"team"</span>: {
+          <span class="hljs-string">"name"</span>: <span class="hljs-string">"home"</span>
+        },
+        <span class="hljs-string">"score"</span>: <span class="hljs-number">0</span>
+      },
+      <span class="hljs-string">"awayTeamStatistic"</span>: {
+        <span class="hljs-string">"team"</span>: {
+          <span class="hljs-string">"name"</span>: <span class="hljs-string">"away"</span>
+        },
+        <span class="hljs-string">"score"</span>: <span class="hljs-number">10</span>
+      }
+    }
+  }
+}
+</code></pre>
+				<h2 id="development">development</h2>
+				<pre><code><span class="hljs-meta">$</span><span class="bash"> git <span class="hljs-built_in">clone</span> git@github.com:ask-utils/proactive-event.git</span>
+<span class="hljs-meta">$</span><span class="bash"> <span class="hljs-built_in">cd</span> proactive-event</span>
+<span class="hljs-meta">$</span><span class="bash"> npm i</span></code></pre><h3 id="test">test</h3>
+				<pre><code><span class="hljs-meta">$</span><span class="bash"> npm <span class="hljs-built_in">test</span></span></code></pre><h3 id="lint">Lint</h3>
+				<pre><code>$ npm <span class="hljs-builtin-name">run</span> lint
+
+<span class="hljs-keyword">or</span>
+
+$ npm <span class="hljs-builtin-name">run</span> lint -- --fix</code></pre><h3 id="history">History</h3>
+				<p>-&gt; <a href="https://github.com/ask-utils/proactive-event/releases">Release Note</a></p>
+				<h3 id="contributors">Contributors</h3>
+				<table>
+					<thead>
+						<tr>
+							<th align="left">Name</th>
+							<th align="left">Version</th>
+						</tr>
+					</thead>
+					<tbody><tr>
+							<td align="left"><a href=""></a></td>
+							<td align="left"></td>
+						</tr>
+				</tbody></table>
+			</div>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="globals  ">
+						<a href="globals.html"><em>Globals</em></a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_localizedattributes_factory_.html">"<wbr>Localized<wbr>Attributes/<wbr>Factory"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_localizedattributes_index_.html">"<wbr>Localized<wbr>Attributes/index"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_mediacontent_available_payloadfactory_.html">"<wbr>Media<wbr>Content/<wbr>Available/<wbr>Payload<wbr>Factory"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_mediacontent_index_.html">"<wbr>Media<wbr>Content/index"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_messagealert_activated_payloadfactory_.html">"<wbr>Message<wbr>Alert/<wbr>Activated/<wbr>Payload<wbr>Factory"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_messagealert_index_.html">"<wbr>Message<wbr>Alert/index"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_occasion_updated_payloadfactory_.html">"<wbr>Occasion/<wbr>Updated/<wbr>Payload<wbr>Factory"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_occasion_index_.html">"<wbr>Occasion/index"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_orderstatus_updated_payloadfactory_.html">"<wbr>Order<wbr>Status/<wbr>Updated/<wbr>Payload<wbr>Factory"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_orderstatus_index_.html">"<wbr>Order<wbr>Status/index"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_socialgameinvite_available_payloadfactory_.html">"<wbr>Social<wbr>Game<wbr>Invite/<wbr>Available/<wbr>Payload<wbr>Factory"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_socialgameinvite_index_.html">"<wbr>Social<wbr>Game<wbr>Invite/index"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_sportsevent_updated_payloadfactory_.html">"<wbr>Sports<wbr>Event/<wbr>Updated/<wbr>Payload<wbr>Factory"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_sportsevent_index_.html">"<wbr>Sports<wbr>Event/index"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_trashcollectionalert_activated_payloadfactory_.html">"<wbr>Trash<wbr>Collection<wbr>Alert/<wbr>Activated/<wbr>Payload<wbr>Factory"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_trashcollectionalert_index_.html">"<wbr>Trash<wbr>Collection<wbr>Alert/index"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_weatheralert_activated_payloadfactory_.html">"<wbr>Weather<wbr>Alert/<wbr>Activated/<wbr>Payload<wbr>Factory"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_weatheralert_index_.html">"<wbr>Weather<wbr>Alert/index"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_clients_.html">"clients"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_helpers_index_.html">"helpers/index"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_helpers_typeguards_.html">"helpers/type<wbr>Guards"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_index_.html">"index"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_model_.html">"model"</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-module"><span class="tsd-kind-icon">Module</span></li>
+				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
+				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
+				<li class="tsd-kind-enum-member"><span class="tsd-kind-icon">Enumeration member</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-enum"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-enum"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-interface"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-interface"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-class"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
+				<li class="tsd-kind-call-signature tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="http://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="assets/js/main.js"></script>
+<script>if (location.protocol == 'file:') document.write('<script src="assets/js/search.js"><' + '/script>');</script>
+</body>
+</html>
