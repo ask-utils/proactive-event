@@ -3,7 +3,7 @@
 [![npm version](https://badge.fury.io/js/ask-utils-proactive-event.svg)](https://badge.fury.io/js/ask-utils-proactive-event)
 ![logo](https://raw.githubusercontent.com/ask-utils/ask-utils/master/docs/img/logo.png)
 
-https://ask-utils.github.io/ask-utils/
+https://ask-utils.github.io/proactive-event/
 
 ## Getting started
 
