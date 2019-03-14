@@ -1,6 +1,6 @@
 {
   "name": "@ask-utils/proactive-event",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Alexa proactive event utilities",
   "main": "dist/index.js",
   "scripts": {
@@ -18,7 +18,12 @@
     "type": "git",
     "url": "https://github.com/ask-utils/proactive-event.git"
   },
-  "keywords": ["Alexa", "ASK SDK", "Proactive Event", "ask-utils"],
+  "keywords": [
+    "Alexa",
+    "ASK SDK",
+    "Proactive Event",
+    "ask-utils"
+  ],
   "author": "Hidetaka Okamoto <info@wp-kyoto.net> (https://wp-kyoto.net)",
   "license": "MIT",
   "devDependencies": {
