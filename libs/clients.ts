@@ -45,7 +45,7 @@ export default class ProactiveClient {
       expiryTime: moment().add(1, 'days').toISOString(),
       event: {},
       relevantAudience: 'Multicast',
-      referenceId: uuid.v4()
+      referenceId: uuid.v4(),
     }
     return this
   }
@@ -98,7 +98,7 @@ export default class ProactiveClient {
     return this
   }
   setLocalizedAttributes(localizedAttributes: {}[]) {
-    this.body.event.localizedAttributes = localizedAttributes
+    this.body.localizedAttributes = localizedAttributes
     return this
   }
   setRelevantAudience (type: client.AudienceType, payload?: client.AudiencePayload) {

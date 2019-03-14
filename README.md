@@ -13,6 +13,74 @@ $ npm i -S @ask-utils/proactive-event
 
 ## Usage
 
+```typescript
+import { Client, MediaContent } from '@ask-utils/proactive-event'
+
+// setup client
+const clientSecret = 'XXXXXXXXXXXXXX'
+const client = new Client({
+  clientId: 'amzn1.application-oa2-client.XXXXXXXXX',
+  clientSecret: 'XXXXXXXXXXXXXX',
+  apiRegion: 'FE' // default: US
+})
+// configure event information
+const PayloadBuilder = MediaContent.Available.PayloadFactory.init()
+const parameters = PayloadBuilder
+  .setMediaType('ALBUM')
+  .setStartTime(moment('2019-03-11T10:05:58.561Z').toDate())
+  .setDistributionMethod('AIR')
+  .getParameter()
+// configure localizedAttributes
+const localizedAttributes = LocalizedAttributes.Factory.init()
+  .putLocalizedAttribute('en-US', 'contentName', 'New CD')
+  .putLocalizedAttribute('ja-JP', 'contentName', 'あたらしいCD')
+  .getLocalizedAttributes()
+
+// Call proactive event API
+client.setEvent(parameters)
+  .setRelevantAudience('Multicast')
+  .setLocalizedAttributes(localizedAttributes)
+  .requestEvent()
+  .then(result => console.log(result))
+  .catch(result => console.log(result))
+
+// requested body
+{
+  "timestamp": "2019-03-14T06:19:23.625Z",
+  "expiryTime": "2019-03-15T06:19:23.627Z",
+  "event": {
+    "name": "AMAZON.MediaContent.Available",
+    "payload": {
+      "availability": {
+        "method": "AIR",
+        "startTime": "2019-03-11T10:05:58.561Z"
+      },
+      "content": {
+        "name": "localizedattribute:contentName",
+        "contentType": "ALBUM"
+      }
+    }
+  },
+  "relevantAudience": {
+    "type": "Multicast"
+  },
+  "referenceId": "9f96ac5e-b341-46bd-b137-6d3b1812ec1d",
+  "localizedAttributes": [
+    {
+      "locale": "en-US",
+      "contentName": "New CD"
+    },
+    {
+      "locale": "ja-JP",
+      "contentName": "あたらしいCD"
+    }
+  ]
+}
+
+```
+
+## Features
+
 ### Client
 
 We can easy to call the Proactive event API by the client.
@@ -44,6 +112,24 @@ client.setPayload(payload)
   .requestEvent()
   .then(result => console.log(result))
   .catch(result => console.log(result))
+```
+
+### LocalizedAttributes Builder
+
+We can easy to create LocalizedAttributes.
+
+```typescript
+import { LocalizedAttributes } from '../../dist/index'
+
+const AttributesBuilder = LocalizedAttributes.Factory.init()
+  .putLocalizedAttribute('ja-JP', 'gameName', 'ポケモン')
+  .putLocalizedAttribute('en-US', 'gameName', 'pokemon')
+  .getLocalizedAttributes()
+
+[
+  { locale: 'ja-JP', gameName: 'ポケモン' },
+  { locale: 'en-US', gameName: 'pokemon' }
+]
 ```
 
 ### Payload Builder

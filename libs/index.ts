@@ -10,6 +10,9 @@ import _SportsEvent from './SportsEvent'
 // client
 import _ProactiveClient from './clients'
 
+// i18n
+import _LocalizedAttributes from './LocalizedAttributes'
+
 export const TrashCollectionAlert = _TrashCollectionAlert
 export const MediaContent = _MediaContent
 export const WeatherAlert = _WeatherAlert
@@ -19,6 +22,7 @@ export const Client = _ProactiveClient
 export const OrderStatus = _OrderStatus
 export const SocialGameInvite = _SocialGameInvite
 export const SportsEvent = _SportsEvent
+export const LocalizedAttributes = _LocalizedAttributes 
 
 
 export default {
@@ -30,5 +34,6 @@ export default {
     OrderStatus,
     SocialGameInvite,
     SportsEvent,
+    LocalizedAttributes,
     Client
 }

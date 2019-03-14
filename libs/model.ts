@@ -1,7 +1,7 @@
 /* eslint-disable import/export */
 
 export namespace Types {
-    export type locale = string
+    export type Locale = "de-DE" | "en-AU" | "en-CA" | "en-GB" | "en-IN" | "en-US" | "es-ES" | "es-MX" | "fr-CA" | "fr-FR" | "it-IT" | "ja-JP"
     export type dateTime = string
     export interface Person {
         name: string;
@@ -109,9 +109,11 @@ export namespace Types {
         count: number;
         urgency?: MessageUrgent;
     }
-    export interface LocalizedAttributes {
-      [name: string]: string;
+    export interface LocalizedAttribute {
+        locale: Locale,
+        [name: string]: string
     }
+    export type LocalizedAttributes = LocalizedAttribute[]
 }
 
 export namespace event {
@@ -261,6 +263,12 @@ export namespace interfaces {
     export interface PayloadBuilder {
         getEventName(): event.EventName;
         getParameter(): event.Props;
+    }
+    export namespace LocalizedAttributes {
+        export interface Factory {
+            putLocalizedAttribute(locale: Types.Locale, key: string, text: string): Factory
+            getLocalizedAttributes(): Types.LocalizedAttributes
+        }
     }
     export namespace TrashCollectionAlert {
         export type PayloadBuilder = Activated.PayloadBuilder

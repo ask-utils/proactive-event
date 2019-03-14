@@ -19,10 +19,12 @@ export default class ParameterFactory {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const availability: any = {}
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const content: any = {}
+        const content: any = {
+            name: 'localizedattribute:contentName'
+        }
         return {
-            setContentName (name?: string) {
-                content.name = name || 'localizedattribute:contentName'
+            setContentName (name: string) {
+                content.name = name
                 return this
             },
             setMediaType (type: Types.MediaType) {
