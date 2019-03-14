@@ -1,7 +1,7 @@
 # ASK-Utils - Utility functions for ask-sdk
 [![Build Status](https://travis-ci.org/ask-utils/proactive-event.svg?branch=master)](https://travis-ci.org/ask-utils/proactive-event)
-[![npm version](https://badge.fury.io/js/ask-utils.svg)](https://badge.fury.io/js/ask-utils)
-![logo](https://raw.githubusercontent.com/ask-utils/proactive-event/master/docs/img/logo.png)
+[![npm version](https://badge.fury.io/js/ask-utils-proactive-event.svg)](https://badge.fury.io/js/ask-utils-proactive-event)
+![logo](https://raw.githubusercontent.com/ask-utils/ask-utils/master/docs/img/logo.png)
 
 https://ask-utils.github.io/ask-utils/
 
