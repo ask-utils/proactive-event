@@ -276,7 +276,39 @@ PayloadBuilder.setGameName('Game')
 }
 ```
 ### AMAZON.SportsEvent.Updated
-[WIP]
+
+```typescript
+import { SportsEvent } from '@ask-utils/proactive-event'
+
+SportsEvent.Updated.PayloadFactory.init()
+  .setAwayTeamStatistic('away', 10)
+  .setHomeTeamStatistic('home', 0)
+  .getParameter()
+
+{
+  "name": "AMAZON.SportsEvent.Updated",
+  "payload": {
+    "sportsEvent": {
+      "eventLeague": {
+        "name": "localizedattribute:eventLeagueName"
+      },
+      "homeTeamStatistic": {
+        "team": {
+          "name": "home"
+        },
+        "score": 0
+      },
+      "awayTeamStatistic": {
+        "team": {
+          "name": "away"
+        },
+        "score": 10
+      }
+    }
+  }
+}
+
+```
 
 ## development
 

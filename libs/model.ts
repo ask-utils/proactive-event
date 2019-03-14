@@ -94,7 +94,7 @@ export namespace Types {
         score: number;
     }
     export interface Soccer {
-        name: string; // "localizedattribute:eventLeagueName"
+        name: string;
     }
 
     export interface MessageState {
@@ -289,12 +289,18 @@ export namespace interfaces {
         }
     }
     export namespace SportsEvent {
+      export type PayloadBuilder = Updated.PayloadBuilder
+      export namespace Updated {
         export interface PayloadBuilder extends interfaces.PayloadBuilder {
-            setEventType(eventName: event.SportsEvent.EventName): PayloadBuilder;
-            setPayload(payload: event.SportsEvent.Payload): PayloadBuilder;
-            getEventName(): event.SportsEvent.EventName;
-            getPayload(): event.SportsEvent.Payload;
+            updateGoalData(teamName: string, score: number): PayloadBuilder
+            setEventLeagueName(name: string): PayloadBuilder;
+            setHomeTeamStatistic(teamName: string, score: number): PayloadBuilder;
+            setAwayTeamStatistic(teamName: string, score: number): PayloadBuilder;
+            getEventName(): event.SportsEvent.Updated.EventName;
+            getParameter(): event.Props<event.SportsEvent.Updated.EventName, event.SportsEvent.Updated.Payload>;
+            getPayload(): event.SportsEvent.Updated.Payload;
         }
+      }
     }
     export namespace MessageAlert {
         export type PayloadBuilder = Activated.PayloadBuilder

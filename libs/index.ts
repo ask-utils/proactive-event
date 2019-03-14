@@ -5,6 +5,7 @@ import _MessageAlert from './MessageAlert'
 import _Occasion from "./Occasion";
 import _OrderStatus from './OrderStatus'
 import _SocialGameInvite from './SocialGameInvite'
+import _SportsEvent from './SportsEvent'
 
 // client
 import _ProactiveClient from './clients'
@@ -17,6 +18,7 @@ export const Occasion = _Occasion
 export const Client = _ProactiveClient
 export const OrderStatus = _OrderStatus
 export const SocialGameInvite = _SocialGameInvite
+export const SportsEvent = _SportsEvent
 
 
 export default {
@@ -27,5 +29,6 @@ export default {
     Occasion,
     OrderStatus,
     SocialGameInvite,
+    SportsEvent,
     Client
 }
