@@ -1,7 +1,7 @@
 /* eslint-disable import/export */
 
 export namespace Types {
-    export type Locale = "de-DE" | "en-AU" | "en-CA" | "en-GB" | "en-IN" | "en-US" | "es-ES" | "es-MX" | "fr-CA" | "fr-FR" | "it-IT" | "ja-JP"
+    export type Locale = 'de-DE' | 'en-AU' | 'en-CA' | 'en-GB' | 'en-IN' | 'en-US' | 'es-ES' | 'es-MX' | 'fr-CA' | 'fr-FR' | 'it-IT' | 'ja-JP'
     export type dateTime = string
     export interface Person {
         name: string;
@@ -30,7 +30,7 @@ export namespace Types {
     }
     export interface Game {
         offer: OfferType;
-        name: string //'localizedattribute:gameName';
+        name: string; // 'localizedattribute:gameName';
     }
 
     export type ConfirmationStatus = 'CONFIRMED' | 'CANCELED' | 'RESCHEDULED' | 'REQUESTED' | 'CREATED' | 'UPDATED'
@@ -39,10 +39,10 @@ export namespace Types {
         confirmationStatus: ConfirmationStatus;
     }
     export interface Ogranization {
-        name: string //'localizedattribute:providerName';
+        name: string; // 'localizedattribute:providerName';
     }
     export interface Skill {
-        name: string //'localizedattribute:brokerName';
+        name: string; // 'localizedattribute:brokerName';
     }
     export interface Occasion {
         occasionType: OccasionType;
@@ -61,7 +61,7 @@ export namespace Types {
     }
     export interface Order {
         seller: {
-            name: string // 'localizedattribute:sellerName';
+            name: string; // 'localizedattribute:sellerName';
         };
     }
     export type OrderStatus = 'PREORDER_RECEIVED' | 'ORDER_RECEIVED' | 'ORDER_PREPARING' | 'ORDER_SHIPPED' | 'ORDER_OUT_FOR_DELIVERY' | 'ORDER_OUT_FOR_DELIVERY' | 'ORDER_DELIVERED'
@@ -110,8 +110,8 @@ export namespace Types {
         urgency?: MessageUrgent;
     }
     export interface LocalizedAttribute {
-        locale: Locale,
-        [name: string]: string
+        locale: Locale;
+        [name: string]: string;
     }
     export type LocalizedAttributes = LocalizedAttribute[]
 }
@@ -212,51 +212,51 @@ export namespace event {
 }
 
 export namespace client {
-  export interface Class {
-    getAccessToken: Promise<client.AuthResponse>
-  }
-  export type ClientId = string
-  export type ClientSecret = string
-  export type APIURL = 'https://api.amazonalexa.com/v1/proactiveEvents/' | 'https://api.eu.amazonalexa.com/v1/proactiveEvents/' | 'https://api.fe.amazonalexa.com/v1/proactiveEvents/'
-  export type DevAPIURL = 'https://api.amazonalexa.com/v1/proactiveEvents/stages/development' | 'https://api.eu.amazonalexa.com/v1/proactiveEvents/stages/development' | 'https://api.fe.amazonalexa.com/v1/proactiveEvents/stages/development'
-  export type APIEndpoint = APIURL | DevAPIURL
-  export type ApiRegion = 'FE' | 'US' | 'EU'
-  export type ClientConfig = {
-    clientId: ClientId,
-    clientSecret: ClientSecret,
-    apiEndpont?: APIEndpoint,
-    apiRegion?: ApiRegion,
-    isProduction?: boolean
-  }
-  export type AuthResponse = {
-    "access_token": string,
-    "expires_in": number,
-    "scope": "alexa::proactive_events",
-    "token_type": "Bearer"
-  }
-  export type AudienceType = 'Unicast' | 'Multicast'
-  export type AudiencePayload = {
-    user: string
-  }
-  export type RelevantAudience = {
-    type: AudienceType
-    payload?: AudiencePayload
-  }
-  export type RequstBody = {
-    timestamp: string
-    expiryTime: string
-    event: {
-      payload: event.Payload
-      name: event.EventName
-      relevantAudience: RelevantAudience
-      refereneId: string
+    export interface Class {
+        getAccessToken: Promise<client.AuthResponse>;
     }
-  }
-  export type Response = {
-    statusCode: number
-    message: string
-    request: RequstBody
-  }
+    export type ClientId = string
+    export type ClientSecret = string
+    export type APIURL = 'https://api.amazonalexa.com/v1/proactiveEvents/' | 'https://api.eu.amazonalexa.com/v1/proactiveEvents/' | 'https://api.fe.amazonalexa.com/v1/proactiveEvents/'
+    export type DevAPIURL = 'https://api.amazonalexa.com/v1/proactiveEvents/stages/development' | 'https://api.eu.amazonalexa.com/v1/proactiveEvents/stages/development' | 'https://api.fe.amazonalexa.com/v1/proactiveEvents/stages/development'
+    export type APIEndpoint = APIURL | DevAPIURL
+    export type ApiRegion = 'FE' | 'US' | 'EU'
+    export interface ClientConfig {
+        clientId: ClientId;
+        clientSecret: ClientSecret;
+        apiEndpont?: APIEndpoint;
+        apiRegion?: ApiRegion;
+        isProduction?: boolean;
+    }
+    export interface AuthResponse {
+        'access_token': string;
+        'expires_in': number;
+        'scope': 'alexa::proactive_events';
+        'token_type': 'Bearer';
+    }
+    export type AudienceType = 'Unicast' | 'Multicast'
+    export interface AudiencePayload {
+        user: string;
+    }
+    export interface RelevantAudience {
+        type: AudienceType;
+        payload?: AudiencePayload;
+    }
+    export interface RequstBody {
+        timestamp: string;
+        expiryTime: string;
+        event: {
+            payload: event.Payload;
+            name: event.EventName;
+            relevantAudience: RelevantAudience;
+            refereneId: string;
+        };
+    }
+    export interface Response {
+        statusCode: number;
+        message: string;
+        request: RequstBody;
+    }
 }
 
 export namespace interfaces {
@@ -266,8 +266,8 @@ export namespace interfaces {
     }
     export namespace LocalizedAttributes {
         export interface Factory {
-            putLocalizedAttribute(locale: Types.Locale, key: string, text: string): Factory
-            getLocalizedAttributes(): Types.LocalizedAttributes
+            putLocalizedAttribute(locale: Types.Locale, key: string, text: string): Factory;
+            getLocalizedAttributes(): Types.LocalizedAttributes;
         }
     }
     export namespace TrashCollectionAlert {
@@ -297,65 +297,65 @@ export namespace interfaces {
         }
     }
     export namespace SportsEvent {
-      export type PayloadBuilder = Updated.PayloadBuilder
-      export namespace Updated {
-        export interface PayloadBuilder extends interfaces.PayloadBuilder {
-            updateGoalData(teamName: string, score: number): PayloadBuilder
-            setEventLeagueName(name: string): PayloadBuilder;
-            setHomeTeamStatistic(teamName: string, score: number): PayloadBuilder;
-            setAwayTeamStatistic(teamName: string, score: number): PayloadBuilder;
-            getEventName(): event.SportsEvent.Updated.EventName;
-            getParameter(): event.Props<event.SportsEvent.Updated.EventName, event.SportsEvent.Updated.Payload>;
-            getPayload(): event.SportsEvent.Updated.Payload;
+        export type PayloadBuilder = Updated.PayloadBuilder
+        export namespace Updated {
+            export interface PayloadBuilder extends interfaces.PayloadBuilder {
+                updateGoalData(teamName: string, score: number): PayloadBuilder;
+                setEventLeagueName(name: string): PayloadBuilder;
+                setHomeTeamStatistic(teamName: string, score: number): PayloadBuilder;
+                setAwayTeamStatistic(teamName: string, score: number): PayloadBuilder;
+                getEventName(): event.SportsEvent.Updated.EventName;
+                getParameter(): event.Props<event.SportsEvent.Updated.EventName, event.SportsEvent.Updated.Payload>;
+                getPayload(): event.SportsEvent.Updated.Payload;
+            }
         }
-      }
     }
     export namespace MessageAlert {
         export type PayloadBuilder = Activated.PayloadBuilder
         export namespace Activated {
-          export interface PayloadBuilder extends interfaces.PayloadBuilder {     
-              setMessageCreator(name: string) : PayloadBuilder
-              setMessageCount(count: number) : PayloadBuilder
-              setMessageUrgency(urgency?: Types.MessageUrgent) : PayloadBuilder
-              setMessageFreshness(freshness: Types.MessageFreshness) : PayloadBuilder
-              setMessageStatus(messageStatus: Types.MessageStatus) : PayloadBuilder
-              getEventName (): event.MessageAlert.Activated.EventName;
-              getParameter(): event.Props<event.MessageAlert.Activated.EventName, event.MessageAlert.Activated.Payload>;
-              getPayload(): event.MessageAlert.Payload;
-          }
+            export interface PayloadBuilder extends interfaces.PayloadBuilder {
+                setMessageCreator(name: string): PayloadBuilder;
+                setMessageCount(count: number): PayloadBuilder;
+                setMessageUrgency(urgency?: Types.MessageUrgent): PayloadBuilder;
+                setMessageFreshness(freshness: Types.MessageFreshness): PayloadBuilder;
+                setMessageStatus(messageStatus: Types.MessageStatus): PayloadBuilder;
+                getEventName (): event.MessageAlert.Activated.EventName;
+                getParameter(): event.Props<event.MessageAlert.Activated.EventName, event.MessageAlert.Activated.Payload>;
+                getPayload(): event.MessageAlert.Payload;
+            }
         }
     }
     export namespace OrderStatus {
-      export type PayloadBuilder = Updated.PayloadBuilder
-      export namespace Updated {
-        export interface PayloadBuilder extends interfaces.PayloadBuilder {
-            setOrderStatus(status: Types.OrderStatus): PayloadBuilder;
-            setEnterTimestamp(date: Date): PayloadBuilder;
-            setExpectedArrival(date: Date): PayloadBuilder;
-            updateSellerName(name: string): PayloadBuilder;
-            getEventName(): event.OrderStatus.EventName;
-            getPayload(): event.OrderStatus.Updated.Payload;
-            getParameter(): event.Props<event.OrderStatus.Updated.EventName, event.OrderStatus.Updated.Payload>;
+        export type PayloadBuilder = Updated.PayloadBuilder
+        export namespace Updated {
+            export interface PayloadBuilder extends interfaces.PayloadBuilder {
+                setOrderStatus(status: Types.OrderStatus): PayloadBuilder;
+                setEnterTimestamp(date: Date): PayloadBuilder;
+                setExpectedArrival(date: Date): PayloadBuilder;
+                updateSellerName(name: string): PayloadBuilder;
+                getEventName(): event.OrderStatus.EventName;
+                getPayload(): event.OrderStatus.Updated.Payload;
+                getParameter(): event.Props<event.OrderStatus.Updated.EventName, event.OrderStatus.Updated.Payload>;
+            }
         }
-      }
     }
     export namespace Occasion {
-      export type PayloadBuilder = Updated.PayloadBuilder
-      export namespace Updated {
-        export interface PayloadBuilder extends interfaces.PayloadBuilder {
-            updateConfirmationStatus(status: Types.ConfirmationStatus): PayloadBuilder;
-            setOccasionType(type: Types.OccasionType): PayloadBuilder;
-            setSubject(subject: string): PayloadBuilder;
-            setProviderName(name: string): PayloadBuilder;
-            setBookingTime(date: Date): PayloadBuilder
-            setBrokerName(name: string): PayloadBuilder;
-            getEventName(): event.Occasion.Updated.EventName;
-            getConfirmationState(): Types.ConfirmationState;
-            getConfirmationStatus(): Types.ConfirmationStatus;
-            getPayload(): event.Occasion.Payload;
-            getParameter(): event.Props<event.Occasion.Updated.EventName, event.Occasion.Updated.Payload>;
+        export type PayloadBuilder = Updated.PayloadBuilder
+        export namespace Updated {
+            export interface PayloadBuilder extends interfaces.PayloadBuilder {
+                updateConfirmationStatus(status: Types.ConfirmationStatus): PayloadBuilder;
+                setOccasionType(type: Types.OccasionType): PayloadBuilder;
+                setSubject(subject: string): PayloadBuilder;
+                setProviderName(name: string): PayloadBuilder;
+                setBookingTime(date: Date): PayloadBuilder;
+                setBrokerName(name: string): PayloadBuilder;
+                getEventName(): event.Occasion.Updated.EventName;
+                getConfirmationState(): Types.ConfirmationState;
+                getConfirmationStatus(): Types.ConfirmationStatus;
+                getPayload(): event.Occasion.Payload;
+                getParameter(): event.Props<event.Occasion.Updated.EventName, event.Occasion.Updated.Payload>;
+            }
         }
-      }
     }
     export namespace MediaContent {
         export namespace Available {
@@ -372,16 +372,16 @@ export namespace interfaces {
         }
     }
     export namespace SocialGameInvite {
-      export namespace Available {
-        export interface PayloadBuilder extends interfaces.PayloadBuilder {
-            setInviterName(name: string): PayloadBuilder;
-            setRelationshipToInvitee(relation: Types.RelationshipToInvitee): PayloadBuilder;
-            setInviteType(type: Types.InviteType): PayloadBuilder;
-            setGameName(name: string): PayloadBuilder;
-            setGameOfferName(name: Types.OfferType): PayloadBuilder;
-            getEventName(): event.SocialGameInvite.Available.EventName;
-            getPayload(): event.SocialGameInvite.Available.Payload;
+        export namespace Available {
+            export interface PayloadBuilder extends interfaces.PayloadBuilder {
+                setInviterName(name: string): PayloadBuilder;
+                setRelationshipToInvitee(relation: Types.RelationshipToInvitee): PayloadBuilder;
+                setInviteType(type: Types.InviteType): PayloadBuilder;
+                setGameName(name: string): PayloadBuilder;
+                setGameOfferName(name: Types.OfferType): PayloadBuilder;
+                getEventName(): event.SocialGameInvite.Available.EventName;
+                getPayload(): event.SocialGameInvite.Available.Payload;
+            }
         }
-      }
     }
 }
