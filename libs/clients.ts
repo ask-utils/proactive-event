@@ -85,8 +85,8 @@ export default class ProactiveClient {
     this.body.expiryTime = moment(date).toISOString()
     return this
   }
-  setBody(body: event.Props) {
-    this.body = body
+  setEvent(event: event.Props) {
+    this.body.event = event
     return this
   }
   setPayload(payload: event.Payload) {

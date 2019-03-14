@@ -13,7 +13,67 @@ $ npm i -S @ask-utils/proactive-event
 
 ## Usage
 
+### Client
+
+We can easy to call the Proactive event API by the client.
+
+```typescript
+import { Client } from '@ask-utils/proactive-event'
+
+const clientSecret = 'XXXXXXXXXXXXXX'
+const client = new Client({
+  clientId: 'amzn1.application-oa2-client.XXXXXXXXX',
+  clientSecret: 'XXXXXXXXXXXXXX',
+  apiRegion: 'FE' // default: US
+})
+
+const payload = {
+  availability: {
+    method: "AIR",
+    startTime: "2019-03-11T10:05:58.561Z"
+  },
+  content: {
+    contentType: "ALBUM",
+    name: "localizedattribute:contentName"
+  }
+}
+
+client.setPayload(payload)
+  .setEventName("AMAZON.MediaContent.Available")
+  .setRelevantAudience("Multicast")
+  .requestEvent()
+  .then(result => console.log(result))
+  .catch(result => console.log(result))
+```
+
 ### Payload Builder
+
+And we can easy to create request payload by the following builders.
+
+```typescript
+import { Client, MediaContent } from '@ask-utils/proactive-event'
+
+const clientSecret = 'XXXXXXXXXXXXXX'
+const client = new Client({
+  clientId: 'amzn1.application-oa2-client.XXXXXXXXX',
+  clientSecret: 'XXXXXXXXXXXXXX',
+  apiRegion: 'FE' // default: US
+})
+
+const PayloadBuilder = MediaContent.Available.PayloadFactory.init()
+PayloadBuilder
+  .setContentName()
+  .setMediaType('ALBUM')
+  .setStartTime(moment('2019-03-11T10:05:58.561Z').toDate())
+  .setDistributionMethod('AIR')
+  .getParameter()
+
+client.setEvent(PayloadBuilder.getParameter())
+  .setRelevantAudience("Multicast")
+  .requestEvent()
+  .then(result => console.log(result))
+  .catch(result => console.log(result))
+```
 
 #### AMAZON.MediaContent.Available
 
