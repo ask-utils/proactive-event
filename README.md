@@ -1,6 +1,6 @@
 # ASK-Utils - Utility functions for ask-sdk
 [![Build Status](https://travis-ci.org/ask-utils/proactive-event.svg?branch=master)](https://travis-ci.org/ask-utils/proactive-event)
-[![npm version](https://badge.fury.io/js/ask-utils-proactive-event.svg)](https://badge.fury.io/js/ask-utils-proactive-event)
+[![npm version](https://badge.fury.io/js/@ask-utils/proactive-event.svg)](https://badge.fury.io/js/@ask-utils/proactive-event)
 ![logo](https://raw.githubusercontent.com/ask-utils/ask-utils/master/docs/img/logo.png)
 
 https://ask-utils.github.io/proactive-event/
@@ -8,13 +8,13 @@ https://ask-utils.github.io/proactive-event/
 ## Getting started
 
 ```
-$ npm i -S ask-utils-proactive-event
+$ npm i -S @ask-utils/proactive-event
 ```
 
 ## Usage
 
 ```typescript
-import { Client, MediaContent } from 'ask-utils-proactive-event'
+import { Client, MediaContent } from '@ask-utils/proactive-event'
 
 // setup client
 const clientSecret = 'XXXXXXXXXXXXXX'
@@ -86,7 +86,7 @@ client.setEvent(parameters)
 We can easy to call the Proactive event API by the client.
 
 ```typescript
-import { Client } from 'ask-utils-proactive-event'
+import { Client } from '@ask-utils/proactive-event'
 
 const clientSecret = 'XXXXXXXXXXXXXX'
 const client = new Client({
@@ -137,7 +137,7 @@ const AttributesBuilder = LocalizedAttributes.Factory.init()
 And we can easy to create request payload by the following builders.
 
 ```typescript
-import { Client, MediaContent } from 'ask-utils-proactive-event'
+import { Client, MediaContent } from '@ask-utils/proactive-event'
 
 const clientSecret = 'XXXXXXXXXXXXXX'
 const client = new Client({
@@ -163,7 +163,7 @@ client.setEvent(PayloadBuilder.getParameter())
 #### AMAZON.MediaContent.Available
 
 ```typescript
-import { MediaContent } from 'ask-utils-proactive-event'
+import { MediaContent } from '@ask-utils/proactive-event'
 
 const PayloadBuilder = MediaContent.Available.PayloadFactory.init()
 PayloadBuilder
@@ -190,7 +190,7 @@ PayloadBuilder
 #### AMAZON.TrashCollectionAlert.Activated
 
 ```typescript
-import { TrashCollectionAlert } from 'ask-utils-proactive-event'
+import { TrashCollectionAlert } from '@ask-utils/proactive-event'
 
 const PayloadBuilder = TrashCollectionAlert.Activated.PayloadFactory.init()
 PayloadBuilder
@@ -218,7 +218,7 @@ PayloadBuilder
 ### AMAZON.WeatherAlert.Activated
 
 ```typescript
-import { WeatherAlert } from 'ask-utils-proactive-event'
+import { WeatherAlert } from '@ask-utils/proactive-event'
 
 const PayloadBuilder = WeatherAlert.Activated.PayloadFactory.init()
 PayloadBuilder
@@ -240,7 +240,7 @@ PayloadBuilder
 ### AMAZON.MessageAlert.Activated
 
 ```typescript
-import { MessageAlert } from 'ask-utils-proactive-event'
+import { MessageAlert } from '@ask-utils/proactive-event'
 const PayloadBuilder = MessageAlert.Activated.PayloadFactory.init()
 
 PayloadBuilder.setMessageCreator('john')
@@ -268,7 +268,7 @@ PayloadBuilder.setMessageCreator('john')
 
 
 ```typescript
-import { Occasion } from 'ask-utils-proactive-event'
+import { Occasion } from '@ask-utils/proactive-event'
 const PayloadBuilder = Occasion.Updated.PayloadFactory.init()
 
 PayloadBuilder
@@ -302,7 +302,7 @@ PayloadBuilder
 ### AMAZON.OrderStatus.Updated
 
 ```typescript
-import { OrderStatus } from 'ask-utils-proactive-event'
+import { OrderStatus } from '@ask-utils/proactive-event'
 const PayloadBuilder = OrderStatus.Updated.PayloadFactory.init()
 
 PayloadBuilder
@@ -333,7 +333,7 @@ PayloadBuilder
 ### AMAZON.SocialGameInvite.Available
 
 ```typescript
-import { SocialGameInvite } from 'ask-utils-proactive-event'
+import { SocialGameInvite } from '@ask-utils/proactive-event'
 const PayloadBuilder = SocialGameInvite.Available.PayloadFactory.init()
 
 PayloadBuilder.setGameName('Game')
@@ -362,7 +362,7 @@ PayloadBuilder.setGameName('Game')
 ### AMAZON.SportsEvent.Updated
 
 ```typescript
-import { SportsEvent } from 'ask-utils-proactive-event'
+import { SportsEvent } from '@ask-utils/proactive-event'
 
 SportsEvent.Updated.PayloadFactory.init()
   .setAwayTeamStatistic('away', 10)
